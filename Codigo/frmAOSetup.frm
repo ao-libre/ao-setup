@@ -645,7 +645,7 @@ Private Sub bProbarSonido_Click()
 '10/03/06: ^[GS]^ - Agregue una revision de la existencia del archivo de sonido
 '*************************************************
 On Error Resume Next
-
+    
     If bProbarSonido.Value = True Then
         ' [GS]
         Dim sonido As String
@@ -707,6 +707,7 @@ Private Sub bProbarVideo_Click()
 'Author: ^[GS]^
 'Last modified: 10/03/06
 '*************************************************
+
 If bProbarVideo.Value = True Then
     DirectDrawTest.Visible = True
     Call DirectDrawTestStart
@@ -761,10 +762,10 @@ On Error Resume Next
     
     DoEvents
     
-    Call mod_DirectX.VersionDirectX
-    Call mod_DirectX.ProbarDirectX
-    
     Call LeerSetup
+    
+    Call mod_DirectX.ProbarDirectX
+    Call mod_DirectX.VersionDirectX
 End Sub
 
 Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)

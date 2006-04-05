@@ -43,7 +43,7 @@ On Error GoTo ErrHandler
     Call Shell("dxdiag C:\DXTest.txt")
     
     Do Until FileExist("C:\DXTest.txt", vbArchive)
-        Sleep 5
+        DoEvents
     Loop
     
     handle = FreeFile
