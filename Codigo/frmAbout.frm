@@ -15,6 +15,7 @@ Begin VB.Form frmAbout
    ScaleMode       =   0  'User
    ScaleWidth      =   6423.114
    ShowInTaskbar   =   0   'False
+   StartUpPosition =   1  'CenterOwner
    Begin VB.PictureBox picIcon 
       AutoSize        =   -1  'True
       ClipControls    =   0   'False

@@ -775,6 +775,8 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
 '*************************************************
     If FileExist("C:\DXTest.txt", vbArchive) Then _
         Kill "C:\DXTest.txt"
+    
+    End
 End Sub
 
 Private Sub pMemoria_ChangeValue(NewValue As Long, OldValue As Long)
