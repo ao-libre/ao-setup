@@ -2,19 +2,19 @@ VERSION 5.00
 Begin VB.Form frmAOSetup 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Argentum Online Setup"
-   ClientHeight    =   5655
+   ClientHeight    =   6000
    ClientLeft      =   45
    ClientTop       =   330
    ClientWidth     =   6870
    Icon            =   "frmAOSetup.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
-   ScaleHeight     =   5655
+   ScaleHeight     =   6000
    ScaleWidth      =   6870
    StartUpPosition =   2  'CenterScreen
    Begin VB.Frame Frame3 
       Caption         =   "Pruebas de DirectX"
-      Height          =   2775
+      Height          =   3135
       Left            =   2640
       TabIndex        =   7
       Top             =   1680
@@ -27,7 +27,7 @@ Begin VB.Form frmAOSetup
          ScaleHeight     =   1245
          ScaleWidth      =   1395
          TabIndex        =   17
-         Top             =   240
+         Top             =   360
          Visible         =   0   'False
          Width           =   1455
          Begin VB.Timer Timer1 
@@ -53,7 +53,7 @@ Begin VB.Form frmAOSetup
          Locked          =   -1  'True
          TabIndex        =   13
          Text            =   "DirectX 7"
-         Top             =   360
+         Top             =   480
          Width           =   1215
       End
       Begin VB.TextBox Text2 
@@ -74,7 +74,7 @@ Begin VB.Form frmAOSetup
          Locked          =   -1  'True
          TabIndex        =   12
          Text            =   "DirectDraw"
-         Top             =   720
+         Top             =   840
          Width           =   1215
       End
       Begin VB.TextBox Text3 
@@ -95,7 +95,7 @@ Begin VB.Form frmAOSetup
          Locked          =   -1  'True
          TabIndex        =   11
          Text            =   "DirectSound"
-         Top             =   1080
+         Top             =   1200
          Width           =   1215
       End
       Begin VB.PictureBox fondoVersion 
@@ -105,7 +105,7 @@ Begin VB.Form frmAOSetup
          ScaleHeight     =   315
          ScaleWidth      =   3795
          TabIndex        =   8
-         Top             =   2280
+         Top             =   2640
          Width           =   3855
          Begin VB.Label lVersionFondo 
             Appearance      =   0  'Flat
@@ -133,13 +133,13 @@ Begin VB.Form frmAOSetup
          End
       End
       Begin AOSetup.chameleonButton bProbarSonido 
-         Height          =   375
+         Height          =   495
          Left            =   240
          TabIndex        =   18
-         Top             =   1680
+         Top             =   1920
          Width           =   1695
          _ExtentX        =   2990
-         _ExtentY        =   661
+         _ExtentY        =   873
          BTYPE           =   3
          TX              =   "S&onido"
          ENAB            =   -1  'True
@@ -171,13 +171,13 @@ Begin VB.Form frmAOSetup
          VALUE           =   0   'False
       End
       Begin AOSetup.chameleonButton bProbarVideo 
-         Height          =   375
+         Height          =   495
          Left            =   2160
          TabIndex        =   19
-         Top             =   1680
+         Top             =   1920
          Width           =   1695
          _ExtentX        =   2990
-         _ExtentY        =   661
+         _ExtentY        =   873
          BTYPE           =   3
          TX              =   "&Video"
          ENAB            =   -1  'True
@@ -209,11 +209,11 @@ Begin VB.Form frmAOSetup
          VALUE           =   0   'False
       End
       Begin VB.Frame Frame4 
-         Caption         =   "Testear"
-         Height          =   735
+         Caption         =   "Probar"
+         Height          =   855
          Left            =   120
          TabIndex        =   20
-         Top             =   1440
+         Top             =   1680
          Width           =   3855
       End
       Begin VB.Label lblDX 
@@ -222,7 +222,7 @@ Begin VB.Form frmAOSetup
          Height          =   255
          Left            =   1920
          TabIndex        =   16
-         Top             =   360
+         Top             =   480
          Visible         =   0   'False
          Width           =   375
       End
@@ -232,7 +232,7 @@ Begin VB.Form frmAOSetup
          Height          =   255
          Left            =   1920
          TabIndex        =   15
-         Top             =   720
+         Top             =   840
          Visible         =   0   'False
          Width           =   375
       End
@@ -242,27 +242,27 @@ Begin VB.Form frmAOSetup
          Height          =   255
          Left            =   1920
          TabIndex        =   14
-         Top             =   1080
+         Top             =   1200
          Visible         =   0   'False
          Width           =   375
       End
       Begin VB.Line Line5 
          X1              =   120
          X2              =   2280
-         Y1              =   600
-         Y2              =   600
+         Y1              =   720
+         Y2              =   720
       End
       Begin VB.Line Line4 
          X1              =   120
          X2              =   2280
-         Y1              =   960
-         Y2              =   960
+         Y1              =   1080
+         Y2              =   1080
       End
       Begin VB.Line Line3 
          X1              =   120
          X2              =   2280
-         Y1              =   1320
-         Y2              =   1320
+         Y1              =   1440
+         Y2              =   1440
       End
    End
    Begin VB.CheckBox cEjecutar 
@@ -273,7 +273,7 @@ Begin VB.Form frmAOSetup
       Height          =   255
       Left            =   2040
       TabIndex        =   2
-      Top             =   5280
+      Top             =   5640
       Value           =   1  'Checked
       Width           =   2295
    End
@@ -282,7 +282,7 @@ Begin VB.Form frmAOSetup
       Height          =   975
       Left            =   120
       TabIndex        =   3
-      Top             =   3480
+      Top             =   3840
       Width           =   2415
       Begin VB.CheckBox chkMusica 
          Appearance      =   0  'Flat
@@ -311,11 +311,23 @@ Begin VB.Form frmAOSetup
    End
    Begin VB.Frame Frame1 
       Caption         =   "Opciones de Video"
-      Height          =   1695
+      Height          =   2055
       Left            =   120
       TabIndex        =   0
       Top             =   1680
       Width           =   2415
+      Begin VB.CheckBox chkPantallaCompleta 
+         Appearance      =   0  'Flat
+         BackColor       =   &H80000004&
+         Caption         =   "Pantalla Completa"
+         ForeColor       =   &H80000008&
+         Height          =   255
+         Left            =   240
+         TabIndex        =   27
+         Top             =   360
+         Value           =   1  'Checked
+         Width           =   2055
+      End
       Begin VB.CheckBox chkUserVideo 
          Appearance      =   0  'Flat
          BackColor       =   &H80000004&
@@ -324,7 +336,7 @@ Begin VB.Form frmAOSetup
          Height          =   255
          Left            =   240
          TabIndex        =   25
-         Top             =   240
+         Top             =   720
          Value           =   1  'Checked
          Width           =   2055
       End
@@ -336,7 +348,7 @@ Begin VB.Form frmAOSetup
          Height          =   255
          Left            =   240
          TabIndex        =   22
-         Top             =   600
+         Top             =   1080
          Value           =   1  'Checked
          Width           =   1455
       End
@@ -345,7 +357,7 @@ Begin VB.Form frmAOSetup
          Height          =   135
          Left            =   120
          TabIndex        =   1
-         Top             =   1320
+         Top             =   1680
          Width           =   2175
          _ExtentX        =   3836
          _ExtentY        =   238
@@ -369,7 +381,7 @@ Begin VB.Form frmAOSetup
          Height          =   255
          Left            =   120
          TabIndex        =   6
-         Top             =   960
+         Top             =   1440
          Width           =   2175
       End
    End
@@ -378,7 +390,7 @@ Begin VB.Form frmAOSetup
       Height          =   375
       Left            =   4920
       TabIndex        =   4
-      Top             =   5160
+      Top             =   5520
       Width           =   1815
       _ExtentX        =   3201
       _ExtentY        =   661
@@ -416,7 +428,7 @@ Begin VB.Form frmAOSetup
       Height          =   375
       Left            =   120
       TabIndex        =   5
-      Top             =   5160
+      Top             =   5520
       Width           =   1815
       _ExtentX        =   3201
       _ExtentY        =   661
@@ -454,7 +466,7 @@ Begin VB.Form frmAOSetup
       Height          =   375
       Left            =   120
       TabIndex        =   21
-      Top             =   4560
+      Top             =   4920
       Width           =   6615
       _ExtentX        =   11668
       _ExtentY        =   661
@@ -531,15 +543,15 @@ Begin VB.Form frmAOSetup
       BorderColor     =   &H00FFFFFF&
       X1              =   120
       X2              =   6720
-      Y1              =   5055
-      Y2              =   5055
+      Y1              =   5415
+      Y2              =   5415
    End
    Begin VB.Line Line1 
       BorderColor     =   &H00808080&
       X1              =   120
       X2              =   6720
-      Y1              =   5040
-      Y2              =   5040
+      Y1              =   5400
+      Y2              =   5400
    End
    Begin VB.Image Image1 
       BorderStyle     =   1  'Fixed Single
@@ -600,11 +612,13 @@ Dim running As Boolean
 Private Sub bAceptar_Click()
 '*************************************************
 'Author: ^[GS]^
-'Last modified: 10/03/06
+'Last modified: 24/06/06
 '*************************************************
     setupMod.bNoSound = Not CBool(Me.chkSonido.Value)
     
     setupMod.bNoMusic = Not CBool(Me.chkMusica.Value)
+    
+    setupMod.bNoRes = Not CBool(Me.chkPantallaCompleta.Value) ' 24/06/2006 - ^[GS]^
     
     setupMod.bUseVideo = CBool(Me.chkUserVideo.Value)
     
@@ -641,8 +655,9 @@ End Sub
 Private Sub bProbarSonido_Click()
 '*************************************************
 'Author: Ivan Leoni y Fernando Costa
-'Last modified: 10/03/06
+'Last modified: 24/06/06
 '10/03/06: ^[GS]^ - Agregue una revision de la existencia del archivo de sonido
+'24/06/06: ^[GS]^ - Una correccion mas mejorada.
 '*************************************************
 On Error Resume Next
     
@@ -653,6 +668,7 @@ On Error Resume Next
         
         If FileExist(sonido, vbArchive) = False Then
             MsgBox "No se puede probar el sonido porque falta el archivo de pruebas.", vbCritical
+            bProbarSonido.Value = False ' 24/06/06 - ^[GS]^
             Exit Sub
         End If
         ' [/GS]
@@ -805,6 +821,7 @@ Private Sub Draw(ByVal X As Integer, ByVal Y As Integer)
 'Last modified: ?/?/?
 '10/03/06: Maraxus - Puse los parámetros ByVal
 '*************************************************
+
     directx.GetWindowRect DirectDrawTest.hwnd, destRect
     
     ddsCharacter.GetSurfaceDesc ddsd
@@ -852,14 +869,28 @@ End Sub
 Public Sub DirectDrawTestStart()
 '*************************************************
 'Author: Ivan Leoni y Fernando Costa
-'Last modified: ?/?/?
+'Last modified: 24/06/06
+'24/06/06: ^[GS]^ - Realize una correccion que evita que se realize cualquier accion sin la imagen imagen.
 '*************************************************
+    
+    ' [GS] 24/06/06 - ^[GS]^
+    If FileExist(App.Path & "\Graficos\test.bmp", vbArchive) = False Then
+        DirectDrawTest.Visible = False
+        Timer1.Enabled = False
+        running = False
+        MsgBox "No se puede probar el video porque falta el archivo de pruebas.", vbCritical
+        bProbarVideo.Value = False
+        Exit Sub
+    End If
+    ' [/GS]
+    
     If lblDD.ForeColor <> &H8000& Then
         DirectDrawTest.Visible = False
         Exit Sub
     End If
 
     Init
+    
     running = True
   
     PostionX = 0
@@ -872,14 +903,14 @@ End Sub
 Private Sub Init()
 '*************************************************
 'Author: Ivan Leoni y Fernando Costa
-'Last modified: 14/03/06
+'Last modified: 24/06/06
 '10/03/06: ^[GS]^ - Hice una correccion para que revise la existencia de la imágen
 '14/03/06: Maraxus - Evité que intente crear otro primary buffer que tiraba un automation error,
 'así como cualquier otro objeto (memory leak)
+'24/06/06: ^[GS]^ - Desplace una linea de codigo a DirectDrawTestStart
 '*************************************************
 
-    If FileExist(App.Path & "\Graficos\test.bmp", vbArchive) = False Then Exit Sub ' [GS] Reviso que exista la imagen
-    
+
     ScaleMode = 2
     
     'Create DirectDraw object

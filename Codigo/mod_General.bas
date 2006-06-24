@@ -27,6 +27,7 @@ Public Type tSetupMods
     bUseVideo   As Boolean
     bNoMusic    As Boolean
     bNoSound    As Boolean
+    bNoRes      As Boolean ' 24/06/2006 - ^[GS]^
 End Type
 
 Public setupMod As tSetupMods
@@ -47,7 +48,7 @@ End Function
 Public Sub LeerSetup()
 '*************************************************
 'Author: ^[GS]^
-'Last modified: 10/03/06
+'Last modified: 24/06/06
 '*************************************************
 On Error Resume Next
     If FileExist(App.Path & "\init\ao.dat", vbArchive) Then
@@ -76,6 +77,8 @@ On Error Resume Next
         If setupMod.byMemory >= 4 And setupMod.byMemory <= 40 Then
             frmAOSetup.pMemoria.Value = setupMod.byMemory
         End If
+        
+        frmAOSetup.chkPantallaCompleta.Value = Not setupMod.bNoRes ' 24/06/2006 - ^[GS]^
         
         frmAOSetup.chkUserVideo = setupMod.bUseVideo
         
