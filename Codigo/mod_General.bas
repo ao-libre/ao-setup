@@ -36,13 +36,13 @@ Public Declare Function ShellExecute Lib "shell32.dll" Alias "ShellExecuteA" (By
 
 Public Const SW_NORMAL As Long = 1
 
-Public Function FileExist(ByVal file As String, ByVal FileType As VbFileAttribute) As Boolean
+Public Function FileExist(ByVal file As String, ByVal fileType As VbFileAttribute) As Boolean
 '*************************************************
 'Author: Ivan Leoni y Fernando Costa
 'Last modified: ?/?/?
 'Se fija si existe el archivo
 '*************************************************
-    FileExist = Dir(file, FileType) <> ""
+    FileExist = Dir(file, fileType) <> ""
 End Function
 
 Public Sub LeerSetup()
@@ -87,3 +87,41 @@ On Error Resume Next
         frmAOSetup.chkSonido.Value = Not setupMod.bNoSound
     End If
 End Sub
+
+Public Function LibraryExist(ByVal file As String, ByVal fileType As VbFileAttribute) As Boolean
+'*************************************************
+'Author: Lucas Tavolaro Ortiz (Tavo)
+'Last modified: 10/01/07
+'Esta funcion chequea en la propia carpeta y en el directorio de windows. Ademas
+'llama para que se registren las librerias (Si estan registradas no pasa nada
+'igual)
+'*************************************************
+'Chequeo progresivo a mano, primero se fija en el mismo path
+LibraryExist = True
+
+If FileExist(file, fileType) Then
+    Shell "regsvr32 /s " & file
+    Exit Function
+End If
+
+If FileExist("C:\WINDOWS\SYSTEM32\" & file, fileType) Then
+    Shell "regsvr32 /s " & file
+    Exit Function
+End If
+
+Dim fsoObject As FileSystemObject
+
+Set fsoObject = New FileSystemObject
+
+If fsoObject.FileExists(file) Then
+    Shell "regsvr32 /s " & file
+    
+    Set fsoObject = Nothing
+    Exit Function
+End If
+
+LibraryExist = False
+Set fsoObject = Nothing
+
+MsgBox fsoObject.GetAbsolutePathName(vbNullString)
+End Function

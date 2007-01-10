@@ -629,7 +629,9 @@ End Sub
 Private Sub cSolucion_Click(Index As Integer)
 '*************************************************
 'Author: ^[GS]^
-'Last modified: 10/03/06
+'Last modified: 10/01/07
+'Last Modified by: Lucas Tavolaro Ortiz (Tavo)
+'De ahora en mas se utiliza la funcion LibraryExist()
 '*************************************************
     If cSolucion(Index).Caption = "&Registrar" Then
         ' registrar
@@ -637,7 +639,7 @@ Private Sub cSolucion_Click(Index As Integer)
         
         Select Case Index
             Case 0  ' inet
-                If Not FileExist("MSINET.OCX", vbNormal) Then
+                If Not LibraryExist("MSINET.OCX", vbNormal) Then
                     MsgBox "ERROR, el archivo MSINET.OCX descargado tiene que ser copiado a este directorio.", vbCritical, "Argentum Online Setup"
                 Else
                     Set fsoObject = New FileSystemObject
@@ -648,7 +650,7 @@ Private Sub cSolucion_Click(Index As Integer)
                 End If
             
             Case 2  ' Rich
-                If Not FileExist("richtx32.ocx", vbNormal) Then
+                If Not LibraryExist("richtx32.ocx", vbNormal) Then
                     MsgBox "ERROR, el archivo RichTx32.ocx descargado tiene que ser copiado a este directorio.", vbCritical, "Argentum Online Setup"
                 Else
                     Set fsoObject = New FileSystemObject
@@ -659,7 +661,7 @@ Private Sub cSolucion_Click(Index As Integer)
                 End If
             
             Case 3  ' CS
-                If Not FileExist("CSWSK32.OCX", vbNormal) Then
+                If Not LibraryExist("CSWSK32.OCX", vbNormal) Then
                     MsgBox "ERROR, el archivo CSWSK32.OCX descargado tiene que ser copiado a este directorio.", vbCritical, "Argentum Online Setup"
                 Else
                     Set fsoObject = New FileSystemObject
@@ -670,7 +672,7 @@ Private Sub cSolucion_Click(Index As Integer)
                 End If
             
             Case 4  ' WS
-                If Not FileExist("MSWINSCK.OCX", vbNormal) Then
+                If Not LibraryExist("MSWINSCK.OCX", vbNormal) Then
                     MsgBox "ERROR, el archivo MSWINSCK.OCX descargado tiene que ser copiado a este directorio.", vbCritical, "Argentum Online Setup"
                 Else
                     Set fsoObject = New FileSystemObject
@@ -854,13 +856,15 @@ End Sub
 Private Sub cVerificar_Click()
 '*************************************************
 'Author: ^[GS]^
-'Last modified: 10/03/06
+'Last modified: 10/01/07
+'Last Modified by: Lucas Tavolaro Ortiz (Tavo)
+'De ahora en mas se utiliza la funcion LibraryExist()
 '*************************************************
 On Error Resume Next
     Err.Clear
     Load frmTestINET
     If Err Then
-        If Not FileExist("msinet.ocx", vbNormal) Then
+        If Not LibraryExist("msinet.ocx", vbNormal) Then
             Call LibError(0, "&Explorar")
         Else
             Call LibError(0, "&Registrar")
@@ -869,7 +873,7 @@ On Error Resume Next
         Call LibOK(0)
     End If
     
-    If Not FileExist("aamd532.dll", vbNormal) Then
+    If Not LibraryExist("aamd532.dll", vbNormal) Then
         Call LibError(1, "&Descargar")
     Else
         Call LibOK(1)
@@ -878,7 +882,7 @@ On Error Resume Next
     Err.Clear
     Load frmTestRICH
     If Err Then
-        If Not FileExist("richtx32.ocx", vbNormal) Then
+        If Not LibraryExist("richtx32.ocx", vbNormal) Then
             Call LibError(2, "&Descargar")
         Else
             Call LibError(2, "&Registrar")
@@ -890,7 +894,7 @@ On Error Resume Next
     Err.Clear
     Load frmTestCS
     If Err Then
-        If Not FileExist("cswsk32.ocx", vbNormal) Then
+        If Not LibraryExist("cswsk32.ocx", vbNormal) Then
             Call LibError(3, "&Descargar")
         Else
             Call LibError(3, "&Registrar")
@@ -902,7 +906,7 @@ On Error Resume Next
     Err.Clear
     Load frmTestWS
     If Err Then
-        If Not FileExist("mswinsck.ocx", vbNormal) Then
+        If Not LibraryExist("mswinsck.ocx", vbNormal) Then
             Call LibError(4, "&Descargar")
         Else
             Call LibError(4, "&Registrar")
