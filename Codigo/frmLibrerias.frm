@@ -2,16 +2,38 @@ VERSION 5.00
 Begin VB.Form frmLibrerias 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Librerias"
-   ClientHeight    =   3765
+   ClientHeight    =   4140
    ClientLeft      =   45
    ClientTop       =   330
    ClientWidth     =   3510
    Icon            =   "frmLibrerias.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
-   ScaleHeight     =   3765
+   ScaleHeight     =   4140
    ScaleWidth      =   3510
    StartUpPosition =   2  'CenterScreen
+   Begin VB.TextBox LibName 
+      Alignment       =   2  'Center
+      BackColor       =   &H00000000&
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00FFFFFF&
+      Height          =   285
+      Index           =   5
+      Left            =   120
+      Locked          =   -1  'True
+      TabIndex        =   20
+      Text            =   "MSCOMCTL.OCX"
+      Top             =   120
+      Width           =   1335
+   End
    Begin VB.TextBox LibName 
       Alignment       =   2  'Center
       BackColor       =   &H00000000&
@@ -31,7 +53,7 @@ Begin VB.Form frmLibrerias
       Locked          =   -1  'True
       TabIndex        =   17
       Text            =   "MSWINSCK.OCX"
-      Top             =   1680
+      Top             =   1920
       Width           =   1335
    End
    Begin VB.TextBox LibName 
@@ -53,7 +75,7 @@ Begin VB.Form frmLibrerias
       Locked          =   -1  'True
       TabIndex        =   10
       Text            =   "CSWSK32.OCX"
-      Top             =   1320
+      Top             =   1560
       Width           =   1335
    End
    Begin VB.TextBox LibName 
@@ -75,7 +97,7 @@ Begin VB.Form frmLibrerias
       Locked          =   -1  'True
       TabIndex        =   9
       Text            =   "RICHTX32.OCX"
-      Top             =   960
+      Top             =   1200
       Width           =   1335
    End
    Begin VB.TextBox LibName 
@@ -97,7 +119,7 @@ Begin VB.Form frmLibrerias
       Locked          =   -1  'True
       TabIndex        =   8
       Text            =   "AAM532.DLL"
-      Top             =   600
+      Top             =   840
       Width           =   1335
    End
    Begin VB.TextBox LibName 
@@ -119,7 +141,7 @@ Begin VB.Form frmLibrerias
       Locked          =   -1  'True
       TabIndex        =   2
       Text            =   "MSINET.OCX"
-      Top             =   240
+      Top             =   480
       Width           =   1335
    End
    Begin VB.Frame Frame1 
@@ -127,7 +149,7 @@ Begin VB.Form frmLibrerias
       Height          =   615
       Left            =   120
       TabIndex        =   0
-      Top             =   2520
+      Top             =   2880
       Width           =   3255
       Begin VB.TextBox txtProxy 
          Height          =   285
@@ -149,7 +171,7 @@ Begin VB.Form frmLibrerias
       Height          =   375
       Left            =   120
       TabIndex        =   1
-      Top             =   3240
+      Top             =   3600
       Width           =   3255
       _ExtentX        =   5741
       _ExtentY        =   661
@@ -188,7 +210,7 @@ Begin VB.Form frmLibrerias
       Index           =   0
       Left            =   2280
       TabIndex        =   6
-      Top             =   120
+      Top             =   360
       Visible         =   0   'False
       Width           =   1095
       _ExtentX        =   1931
@@ -227,7 +249,7 @@ Begin VB.Form frmLibrerias
       Height          =   375
       Left            =   120
       TabIndex        =   7
-      Top             =   2040
+      Top             =   2400
       Width           =   3255
       _ExtentX        =   5741
       _ExtentY        =   661
@@ -266,7 +288,7 @@ Begin VB.Form frmLibrerias
       Index           =   1
       Left            =   2280
       TabIndex        =   14
-      Top             =   480
+      Top             =   720
       Visible         =   0   'False
       Width           =   1095
       _ExtentX        =   1931
@@ -306,7 +328,7 @@ Begin VB.Form frmLibrerias
       Index           =   2
       Left            =   2280
       TabIndex        =   15
-      Top             =   840
+      Top             =   1080
       Visible         =   0   'False
       Width           =   1095
       _ExtentX        =   1931
@@ -346,7 +368,7 @@ Begin VB.Form frmLibrerias
       Index           =   3
       Left            =   2280
       TabIndex        =   16
-      Top             =   1200
+      Top             =   1440
       Visible         =   0   'False
       Width           =   1095
       _ExtentX        =   1931
@@ -386,7 +408,7 @@ Begin VB.Form frmLibrerias
       Index           =   4
       Left            =   2280
       TabIndex        =   18
-      Top             =   1560
+      Top             =   1800
       Visible         =   0   'False
       Width           =   1095
       _ExtentX        =   1931
@@ -421,11 +443,78 @@ Begin VB.Form frmLibrerias
       CHECK           =   0   'False
       VALUE           =   0   'False
    End
+   Begin AOSetup.chameleonButton cSolucion 
+      Height          =   375
+      Index           =   5
+      Left            =   2280
+      TabIndex        =   22
+      Top             =   0
+      Visible         =   0   'False
+      Width           =   1095
+      _ExtentX        =   1931
+      _ExtentY        =   661
+      BTYPE           =   3
+      TX              =   ""
+      ENAB            =   -1  'True
+      BeginProperty FONT {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "MS Sans Serif"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      COLTYPE         =   1
+      FOCUSR          =   -1  'True
+      BCOL            =   12648384
+      BCOLO           =   12648384
+      FCOL            =   0
+      FCOLO           =   0
+      MCOL            =   12632256
+      MPTR            =   1
+      MICON           =   "frmLibrerias.frx":0506
+      UMCOL           =   -1  'True
+      SOFT            =   0   'False
+      PICPOS          =   0
+      NGREY           =   0   'False
+      FX              =   0
+      HAND            =   0   'False
+      CHECK           =   0   'False
+      VALUE           =   0   'False
+   End
+   Begin VB.Label lblOK 
+      AutoSize        =   -1  'True
+      BackStyle       =   0  'Transparent
+      Caption         =   "OK"
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   195
+      Index           =   5
+      Left            =   1560
+      TabIndex        =   21
+      Top             =   120
+      Visible         =   0   'False
+      Width           =   270
+   End
+   Begin VB.Line Line6 
+      X1              =   120
+      X2              =   2280
+      Y1              =   360
+      Y2              =   360
+   End
    Begin VB.Line Line5 
       X1              =   120
       X2              =   2280
-      Y1              =   1920
-      Y2              =   1920
+      Y1              =   2160
+      Y2              =   2160
    End
    Begin VB.Label lblOK 
       AutoSize        =   -1  'True
@@ -444,7 +533,7 @@ Begin VB.Form frmLibrerias
       Index           =   4
       Left            =   1560
       TabIndex        =   19
-      Top             =   1680
+      Top             =   1920
       Visible         =   0   'False
       Width           =   270
    End
@@ -465,7 +554,7 @@ Begin VB.Form frmLibrerias
       Index           =   3
       Left            =   1560
       TabIndex        =   13
-      Top             =   1320
+      Top             =   1560
       Visible         =   0   'False
       Width           =   270
    End
@@ -486,7 +575,7 @@ Begin VB.Form frmLibrerias
       Index           =   2
       Left            =   1560
       TabIndex        =   12
-      Top             =   960
+      Top             =   1200
       Visible         =   0   'False
       Width           =   270
    End
@@ -507,7 +596,7 @@ Begin VB.Form frmLibrerias
       Index           =   1
       Left            =   1560
       TabIndex        =   11
-      Top             =   600
+      Top             =   840
       Visible         =   0   'False
       Width           =   270
    End
@@ -528,33 +617,33 @@ Begin VB.Form frmLibrerias
       Index           =   0
       Left            =   1560
       TabIndex        =   3
-      Top             =   240
+      Top             =   480
       Visible         =   0   'False
       Width           =   270
    End
    Begin VB.Line Line4 
       X1              =   120
       X2              =   2280
-      Y1              =   1560
-      Y2              =   1560
+      Y1              =   1800
+      Y2              =   1800
    End
    Begin VB.Line Line2 
       X1              =   120
       X2              =   2280
-      Y1              =   1200
-      Y2              =   1200
+      Y1              =   1440
+      Y2              =   1440
    End
    Begin VB.Line Line1 
       X1              =   120
       X2              =   2280
-      Y1              =   840
-      Y2              =   840
+      Y1              =   1080
+      Y2              =   1080
    End
    Begin VB.Line Line3 
       X1              =   120
       X2              =   2280
-      Y1              =   480
-      Y2              =   480
+      Y1              =   720
+      Y2              =   720
    End
 End
 Attribute VB_Name = "frmLibrerias"
@@ -679,6 +768,16 @@ Private Sub cSolucion_Click(Index As Integer)
                     fsoObject.CopyFile "MSWINSCK.OCX", fsoObject.GetSpecialFolder(SystemFolder) & "\", True
                     If Err Then MsgBox Err.Description
                     Shell "regsvr32 /s " & fsoObject.GetSpecialFolder(SystemFolder) & "\MSWINSCK.OCX"
+                    MsgBox "Copia y registro realizados con exito.", vbOKOnly, "Argentum Online Setup"
+                End If
+            Case 5 'MSCOMCTL
+                If Not LibraryExist("MSCOMCTL.OCX", vbNormal) Then
+                    MsgBox "ERROR, el archivo MSCOMCTL.OCX descargado tiene que ser copiado a este directorio.", vbCritical, "Argentum Online Setup"
+                Else
+                    Set fsoObject = New FileSystemObject
+                    fsoObject.CopyFile "MSCOMCTL.OCX", fsoObject.GetSpecialFolder(SystemFolder) & "\", True
+                    If Err Then MsgBox Err.Description
+                    Shell "regsvr32 /s " & fsoObject.GetSpecialFolder(SystemFolder) & "\MSCOMCTL.OCX"
                     MsgBox "Copia y registro realizados con exito.", vbOKOnly, "Argentum Online Setup"
                 End If
         End Select
@@ -847,8 +946,42 @@ Private Sub cSolucion_Click(Index As Integer)
                     Else
                         MsgBox "No se pudo descargar el archivo", vbInformation, "Falta archivo"
                     End If
-                Else
-            End If
+                End If
+            Case 5 'MSCOMCTL
+                rta = MsgBox("Necesita descargar el archivo MSCOMCTL.OCX." & Chr(10) & _
+                    "Si desea descargarlo y registrarlo automaticamente precione Si.", vbYesNo, "Solución al problema")
+                
+                If rta = vbYes Then
+                    'Bajarlo
+                    descargando = True
+                    If ChkProxy.Value = 1 Then
+                        Call DownloadForm.DownloadFile("http://ao.alkon.com.ar/descargas/MSCOMCTL.OCX", "MSCOMCTL.OCX", , , 2, txtProxy.Text)
+                    Else
+                        Call DownloadForm.DownloadFile("http://ao.alkon.com.ar/descargas/MSCOMCTL.OCX", "MSCOMCTL.OCX")
+                    End If
+                    
+                    If (Not DownloadForm.DownloadSuccess) Or (DownloadForm.BotonCancel = True) Then
+                       Unload DownloadForm
+                       MsgBox "Descarga cancelada", vbInformation, "Error no solucionado"
+                       Exit Sub
+                    Else
+                       Unload DownloadForm
+                    End If
+                    
+                    descargando = False
+                    
+                    If FileExist("MSCOMCTL.ocx", vbNormal) Then
+                        'If mod_MD5.MD5File("MSCOMCTL.ocx") <> "" Then 'aca falta agregar el MD5 del MSCOMCTL.OCX
+                        '    MsgBox "No se puede comprobar la originalidad del archivo descargado, no se instalara.", vbCritical, "Error en MD5"
+                        '    Exit Sub
+                        'Else
+                            DoEvents
+                            Call cVerificar_Click
+                        'End If
+                    Else
+                        MsgBox "No se pudo descargar el archivo", vbInformation, "Falta archivo"
+                    End If
+                End If
         End Select
     End If
 End Sub
@@ -856,12 +989,25 @@ End Sub
 Private Sub cVerificar_Click()
 '*************************************************
 'Author: ^[GS]^
-'Last modified: 10/01/07
-'Last Modified by: Lucas Tavolaro Ortiz (Tavo)
-'De ahora en mas se utiliza la funcion LibraryExist()
+'Last modified: 04/11/08
+'Last Modified by: NicoNZ
+'Busca la existencia de la libreria "mscomctl.ocx"
 '*************************************************
 On Error Resume Next
     Err.Clear
+    
+    Load DownloadForm
+    If Err Then
+        If Not LibraryExist("mscomctl.ocx", vbNormal) Then
+            Call LibError(5, "&Explorar")
+        Else
+            Call LibError(5, "&Registrar")
+        End If
+    Else
+        Call LibOK(5)
+    End If
+        
+    
     Load frmTestINET
     If Err Then
         If Not LibraryExist("msinet.ocx", vbNormal) Then
