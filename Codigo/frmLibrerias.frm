@@ -770,6 +770,7 @@ Private Sub cSolucion_Click(Index As Integer)
                     Shell "regsvr32 /s " & fsoObject.GetSpecialFolder(SystemFolder) & "\MSWINSCK.OCX"
                     MsgBox "Copia y registro realizados con exito.", vbOKOnly, "Argentum Online Setup"
                 End If
+            
             Case 5 'MSCOMCTL
                 If Not LibraryExist("MSCOMCTL.OCX", vbNormal) Then
                     MsgBox "ERROR, el archivo MSCOMCTL.OCX descargado tiene que ser copiado a este directorio.", vbCritical, "Argentum Online Setup"
@@ -947,6 +948,7 @@ Private Sub cSolucion_Click(Index As Integer)
                         MsgBox "No se pudo descargar el archivo", vbInformation, "Falta archivo"
                     End If
                 End If
+            
             Case 5 'MSCOMCTL
                 rta = MsgBox("Necesita descargar el archivo MSCOMCTL.OCX." & Chr(10) & _
                     "Si desea descargarlo y registrarlo automaticamente precione Si.", vbYesNo, "Solución al problema")
@@ -970,14 +972,14 @@ Private Sub cSolucion_Click(Index As Integer)
                     
                     descargando = False
                     
-                    If FileExist("MSCOMCTL.ocx", vbNormal) Then
-                        'If mod_MD5.MD5File("MSCOMCTL.ocx") <> "" Then 'aca falta agregar el MD5 del MSCOMCTL.OCX
-                        '    MsgBox "No se puede comprobar la originalidad del archivo descargado, no se instalara.", vbCritical, "Error en MD5"
-                        '    Exit Sub
-                        'Else
+                    If FileExist("MSCOMCTL.OCX", vbNormal) Then
+                        If mod_MD5.MD5File("MSCOMCTL.OCX") <> "ECC7D7F0D3446DE36045D1D9E964FAFE" Then
+                            MsgBox "No se puede comprobar la originalidad del archivo descargado, no se instalara.", vbCritical, "Error en MD5"
+                            Exit Sub
+                        Else
                             DoEvents
                             Call cVerificar_Click
-                        'End If
+                        End If
                     Else
                         MsgBox "No se pudo descargar el archivo", vbInformation, "Falta archivo"
                     End If
