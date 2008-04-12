@@ -957,17 +957,17 @@ Private Sub cSolucion_Click(Index As Integer)
                     'Bajarlo
                     descargando = True
                     If ChkProxy.Value = 1 Then
-                        Call DownloadForm.DownloadFile("http://ao.alkon.com.ar/descargas/MSCOMCTL.OCX", "MSCOMCTL.OCX", , , 2, txtProxy.Text)
+                        Call DownloadFormSimple.DownloadFile("http://ao.alkon.com.ar/descargas/MSCOMCTL.OCX", "MSCOMCTL.OCX", , , 2, txtProxy.Text)
                     Else
-                        Call DownloadForm.DownloadFile("http://ao.alkon.com.ar/descargas/MSCOMCTL.OCX", "MSCOMCTL.OCX")
+                        Call DownloadFormSimple.DownloadFile("http://ao.alkon.com.ar/descargas/MSCOMCTL.OCX", "MSCOMCTL.OCX")
                     End If
                     
-                    If (Not DownloadForm.DownloadSuccess) Or (DownloadForm.BotonCancel = True) Then
-                       Unload DownloadForm
+                    If (Not DownloadFormSimple.DownloadSuccess) Or (DownloadFormSimple.BotonCancel = True) Then
+                       Unload DownloadFormSimple
                        MsgBox "Descarga cancelada", vbInformation, "Error no solucionado"
                        Exit Sub
                     Else
-                       Unload DownloadForm
+                       Unload DownloadFormSimple
                     End If
                     
                     descargando = False
