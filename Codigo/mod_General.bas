@@ -22,12 +22,13 @@ Attribute VB_Name = "mod_General"
 Option Explicit
 
 Public Type tSetupMods
-    bDinamic    As Boolean
-    byMemory    As Byte
-    bUseVideo   As Boolean
-    bNoMusic    As Boolean
-    bNoSound    As Boolean
-    bNoRes      As Boolean ' 24/06/2006 - ^[GS]^
+    bDinamic        As Boolean
+    byMemory        As Byte
+    bUseVideo       As Boolean
+    bNoMusic        As Boolean
+    bNoSound        As Boolean
+    bNoRes          As Boolean ' 24/06/2006 - ^[GS]^
+    bNoSoundEffects As Boolean
 End Type
 
 Public setupMod As tSetupMods
@@ -85,6 +86,8 @@ On Error Resume Next
         frmAOSetup.chkMusica.Value = Not setupMod.bNoMusic
         
         frmAOSetup.chkSonido.Value = Not setupMod.bNoSound
+        
+        frmAOSetup.chkEfectos.Value = Not setupMod.bNoSoundEffects
     End If
 End Sub
 

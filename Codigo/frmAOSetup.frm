@@ -14,7 +14,7 @@ Begin VB.Form frmAOSetup
    StartUpPosition =   2  'CenterScreen
    Begin VB.Frame Frame3 
       Caption         =   "Pruebas de DirectX"
-      Height          =   3135
+      Height          =   3270
       Left            =   2640
       TabIndex        =   7
       Top             =   1680
@@ -105,7 +105,7 @@ Begin VB.Form frmAOSetup
          ScaleHeight     =   315
          ScaleWidth      =   3795
          TabIndex        =   8
-         Top             =   2640
+         Top             =   2715
          Width           =   3855
          Begin VB.Label lVersionFondo 
             Appearance      =   0  'Flat
@@ -279,11 +279,23 @@ Begin VB.Form frmAOSetup
    End
    Begin VB.Frame Frame2 
       Caption         =   "Opciones de Sonido"
-      Height          =   975
+      Height          =   1110
       Left            =   120
       TabIndex        =   3
       Top             =   3840
       Width           =   2415
+      Begin VB.CheckBox chkEfectos 
+         Appearance      =   0  'Flat
+         BackColor       =   &H80000004&
+         Caption         =   "&Efectos de sonido"
+         ForeColor       =   &H80000008&
+         Height          =   255
+         Left            =   360
+         TabIndex        =   28
+         Top             =   810
+         Value           =   1  'Checked
+         Width           =   1695
+      End
       Begin VB.CheckBox chkMusica 
          Appearance      =   0  'Flat
          BackColor       =   &H80000004&
@@ -292,7 +304,7 @@ Begin VB.Form frmAOSetup
          Height          =   255
          Left            =   360
          TabIndex        =   24
-         Top             =   600
+         Top             =   525
          Value           =   1  'Checked
          Width           =   1695
       End
@@ -464,9 +476,9 @@ Begin VB.Form frmAOSetup
    End
    Begin AOSetup.chameleonButton cLibrerias 
       Height          =   375
-      Left            =   120
+      Left            =   105
       TabIndex        =   21
-      Top             =   4920
+      Top             =   4980
       Width           =   6615
       _ExtentX        =   11668
       _ExtentY        =   661
@@ -625,6 +637,8 @@ Private Sub bAceptar_Click()
     setupMod.bDinamic = Me.chkDinamico.Value
     
     setupMod.byMemory = CByte(Me.pMemoria.Value)
+    
+    setupMod.bNoSoundEffects = Not CBool(Me.chkEfectos.Value)
     
     DoEvents
     
