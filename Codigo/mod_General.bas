@@ -29,6 +29,7 @@ Public Type tSetupMods
     bNoSound        As Boolean
     bNoRes          As Boolean ' 24/06/2006 - ^[GS]^
     bNoSoundEffects As Boolean
+    sGraficos       As String ' 16/04/2009 - Marco
 End Type
 
 Public setupMod As tSetupMods
@@ -88,6 +89,14 @@ On Error Resume Next
         frmAOSetup.chkSonido.Value = Not setupMod.bNoSound
         
         frmAOSetup.chkEfectos.Value = Not setupMod.bNoSoundEffects
+        
+        If setupMod.sGraficos <> vbNullString Then
+            If setupMod.sGraficos = "Graficos1.ind" Then
+                frmAOSetup.optSmall.Value = True
+            ElseIf setupMod.sGraficos = "Graficos2.ind" Then
+                frmAOSetup.OptAverage.Value = True
+            End If
+        End If
     End If
 End Sub
 

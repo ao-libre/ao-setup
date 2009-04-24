@@ -2,16 +2,49 @@ VERSION 5.00
 Begin VB.Form frmAOSetup 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Argentum Online Setup"
-   ClientHeight    =   6000
+   ClientHeight    =   6705
    ClientLeft      =   45
    ClientTop       =   330
    ClientWidth     =   6870
    Icon            =   "frmAOSetup.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
-   ScaleHeight     =   6000
+   ScaleHeight     =   6705
    ScaleWidth      =   6870
    StartUpPosition =   2  'CenterScreen
+   Begin VB.Frame Frame5 
+      Caption         =   "Tipo de Arboles"
+      Height          =   615
+      Left            =   120
+      TabIndex        =   29
+      Top             =   5040
+      Width           =   6615
+      Begin VB.OptionButton optBig 
+         Caption         =   "Grandes"
+         Height          =   255
+         Left            =   5400
+         TabIndex        =   32
+         Top             =   240
+         Value           =   -1  'True
+         Width           =   1095
+      End
+      Begin VB.OptionButton OptAverage 
+         Caption         =   "Medianos"
+         Height          =   255
+         Left            =   2760
+         TabIndex        =   31
+         Top             =   240
+         Width           =   1095
+      End
+      Begin VB.OptionButton optSmall 
+         Caption         =   "Pequeños"
+         Height          =   255
+         Left            =   120
+         TabIndex        =   30
+         Top             =   240
+         Width           =   1095
+      End
+   End
    Begin VB.Frame Frame3 
       Caption         =   "Pruebas de DirectX"
       Height          =   3270
@@ -273,7 +306,7 @@ Begin VB.Form frmAOSetup
       Height          =   255
       Left            =   2040
       TabIndex        =   2
-      Top             =   5640
+      Top             =   6360
       Value           =   1  'Checked
       Width           =   2295
    End
@@ -371,20 +404,19 @@ Begin VB.Form frmAOSetup
          TabIndex        =   1
          Top             =   1680
          Width           =   2175
-         _ExtentX        =   3836
-         _ExtentY        =   238
-         Value           =   16
-         Min             =   4
-         Max             =   40
-         BackColor       =   0
-         FillColor       =   8421631
-         BorderColor     =   16777215
-         BorderStyle     =   3
-         EnabledSlider   =   0   'False
-         MousePointer    =   0
-         picForeColor    =   12632256
-         picFillColor    =   8421504
-         Style           =   1
+         _extentx        =   3836
+         _extenty        =   238
+         value           =   40
+         min             =   4
+         max             =   40
+         backcolor       =   0
+         fillcolor       =   8421631
+         bordercolor     =   16777215
+         borderstyle     =   3
+         enabledslider   =   0
+         picforecolor    =   12632256
+         picfillcolor    =   8421504
+         style           =   1
       End
       Begin VB.Label lCuantoVideo 
          Alignment       =   2  'Center
@@ -402,7 +434,7 @@ Begin VB.Form frmAOSetup
       Height          =   375
       Left            =   4920
       TabIndex        =   4
-      Top             =   5520
+      Top             =   6240
       Width           =   1815
       _ExtentX        =   3201
       _ExtentY        =   661
@@ -440,7 +472,7 @@ Begin VB.Form frmAOSetup
       Height          =   375
       Left            =   120
       TabIndex        =   5
-      Top             =   5520
+      Top             =   6240
       Width           =   1815
       _ExtentX        =   3201
       _ExtentY        =   661
@@ -478,7 +510,7 @@ Begin VB.Form frmAOSetup
       Height          =   375
       Left            =   105
       TabIndex        =   21
-      Top             =   4980
+      Top             =   5700
       Width           =   6615
       _ExtentX        =   11668
       _ExtentY        =   661
@@ -555,15 +587,15 @@ Begin VB.Form frmAOSetup
       BorderColor     =   &H00FFFFFF&
       X1              =   120
       X2              =   6720
-      Y1              =   5415
-      Y2              =   5415
+      Y1              =   6135
+      Y2              =   6135
    End
    Begin VB.Line Line1 
       BorderColor     =   &H00808080&
       X1              =   120
       X2              =   6720
-      Y1              =   5400
-      Y2              =   5400
+      Y1              =   6120
+      Y2              =   6120
    End
    Begin VB.Image Image1 
       BorderStyle     =   1  'Fixed Single
@@ -626,6 +658,8 @@ Private Sub bAceptar_Click()
 'Author: ^[GS]^
 'Last modified: 24/06/06
 '*************************************************
+    Dim sFile As String
+    
     setupMod.bNoSound = Not CBool(Me.chkSonido.Value)
     
     setupMod.bNoMusic = Not CBool(Me.chkMusica.Value)
@@ -639,6 +673,16 @@ Private Sub bAceptar_Click()
     setupMod.byMemory = CByte(Me.pMemoria.Value)
     
     setupMod.bNoSoundEffects = Not CBool(Me.chkEfectos.Value)
+    
+    If optBig.Value Then
+        sFile = "Graficos3.ind"
+    ElseIf OptAverage.Value Then
+        sFile = "Graficos2.ind"
+    Else
+        sFile = "Graficos1.ind"
+    End If
+    
+    setupMod.sGraficos = sFile
     
     DoEvents
     
@@ -707,7 +751,7 @@ On Error Resume Next
     End If
 End Sub
 
-Sub LoadWave(i As Integer, sfile As String)
+Sub LoadWave(i As Integer, sFile As String)
 '*************************************************
 'Author: Ivan Leoni y Fernando Costa
 'Last modified: 10/03/06
@@ -724,10 +768,10 @@ Sub LoadWave(i As Integer, sfile As String)
     waveFormat.nBitsPerSample = 16  '16 bit rather than 8 bit
     waveFormat.nBlockAlign = waveFormat.nBitsPerSample / 8 * waveFormat.nChannels
     waveFormat.lAvgBytesPerSec = waveFormat.lSamplesPerSec * waveFormat.nBlockAlign
-    Set m_dsBuffer = DirectSound.CreateSoundBufferFromFile(sfile, bufferDesc, waveFormat)
+    Set m_dsBuffer = DirectSound.CreateSoundBufferFromFile(sFile, bufferDesc, waveFormat)
     
     If Err.Number <> 0 Then
-        MsgBox "Error en " + sfile
+        MsgBox "Error en " + sFile
         End
     End If
 End Sub

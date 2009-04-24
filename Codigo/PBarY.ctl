@@ -138,7 +138,7 @@ Static o_Value As Long
         If m_Style = Normal Then
     If Ref Then Ref = False: Cls
             Shape1.Visible = True
-        Shape1.Width = ScaleWidth * (m_Value - m_Min) / (m_Max - m_Min)
+        Shape1.Width = ScaleWidth * (m_Value - m_Min) / (m_Max - m_Min + 1)
     Else
         Shape1.Visible = False
             If Ref Then Ref = False: Cls
