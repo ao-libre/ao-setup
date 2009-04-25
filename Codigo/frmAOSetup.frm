@@ -404,19 +404,20 @@ Begin VB.Form frmAOSetup
          TabIndex        =   1
          Top             =   1680
          Width           =   2175
-         _extentx        =   3836
-         _extenty        =   238
-         value           =   40
-         min             =   4
-         max             =   40
-         backcolor       =   0
-         fillcolor       =   8421631
-         bordercolor     =   16777215
-         borderstyle     =   3
-         enabledslider   =   0
-         picforecolor    =   12632256
-         picfillcolor    =   8421504
-         style           =   1
+         _ExtentX        =   3836
+         _ExtentY        =   238
+         Value           =   40
+         Min             =   4
+         Max             =   40
+         BackColor       =   0
+         FillColor       =   8421631
+         BorderColor     =   16777215
+         BorderStyle     =   3
+         EnabledSlider   =   0   'False
+         MousePointer    =   0
+         picForeColor    =   12632256
+         picFillColor    =   8421504
+         Style           =   1
       End
       Begin VB.Label lCuantoVideo 
          Alignment       =   2  'Center
