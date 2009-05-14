@@ -800,7 +800,7 @@ Private Sub cSolucion_Click(Index As Integer)
                     "Es necesario que este archivo sea descargando manualmente y colocado en el directorio del juego, si esta de acuerdo precione Si", vbInformation + vbYesNo, "Solución al problema")
                 
                 If rta = vbYes Then
-                    ShellExecute hwnd, "open", "http://ao.alkon.com.ar/descargas/MSINET.OCX", vbNullString, vbNullString, SW_NORMAL
+                    Call ShellExecute(hwnd, "open", "http://ao.alkon.com.ar/descargas/MSINET.OCX", vbNullString, vbNullString, SW_SHOWNORMAL)
                 End If
             
             Case 1  ' AA
