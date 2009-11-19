@@ -2,16 +2,41 @@ VERSION 5.00
 Begin VB.Form frmAOSetup 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Argentum Online Setup"
-   ClientHeight    =   6705
+   ClientHeight    =   7530
    ClientLeft      =   45
    ClientTop       =   330
    ClientWidth     =   6870
    Icon            =   "frmAOSetup.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
-   ScaleHeight     =   6705
+   ScaleHeight     =   7530
    ScaleWidth      =   6870
    StartUpPosition =   2  'CenterScreen
+   Begin VB.Frame Frame6 
+      Caption         =   "Noticias del clan"
+      Height          =   735
+      Left            =   120
+      TabIndex        =   33
+      Top             =   5760
+      Width           =   6615
+      Begin VB.OptionButton optNoMostrar 
+         Caption         =   "No mostrarlas"
+         Height          =   255
+         Left            =   4200
+         TabIndex        =   35
+         Top             =   315
+         Width           =   1335
+      End
+      Begin VB.OptionButton optMostrarNoticias 
+         Caption         =   "Mostrar noticias al conectarse"
+         Height          =   255
+         Left            =   1080
+         TabIndex        =   34
+         Top             =   315
+         Value           =   -1  'True
+         Width           =   2415
+      End
+   End
    Begin VB.Frame Frame5 
       Caption         =   "Tipo de Arboles"
       Height          =   615
@@ -306,7 +331,7 @@ Begin VB.Form frmAOSetup
       Height          =   255
       Left            =   2040
       TabIndex        =   2
-      Top             =   6360
+      Top             =   7200
       Value           =   1  'Checked
       Width           =   2295
    End
@@ -435,7 +460,7 @@ Begin VB.Form frmAOSetup
       Height          =   375
       Left            =   4920
       TabIndex        =   4
-      Top             =   6240
+      Top             =   7080
       Width           =   1815
       _ExtentX        =   3201
       _ExtentY        =   661
@@ -473,7 +498,7 @@ Begin VB.Form frmAOSetup
       Height          =   375
       Left            =   120
       TabIndex        =   5
-      Top             =   6240
+      Top             =   7080
       Width           =   1815
       _ExtentX        =   3201
       _ExtentY        =   661
@@ -511,7 +536,7 @@ Begin VB.Form frmAOSetup
       Height          =   375
       Left            =   105
       TabIndex        =   21
-      Top             =   5700
+      Top             =   6540
       Width           =   6615
       _ExtentX        =   11668
       _ExtentY        =   661
@@ -588,15 +613,15 @@ Begin VB.Form frmAOSetup
       BorderColor     =   &H00FFFFFF&
       X1              =   120
       X2              =   6720
-      Y1              =   6135
-      Y2              =   6135
+      Y1              =   6975
+      Y2              =   6975
    End
    Begin VB.Line Line1 
       BorderColor     =   &H00808080&
       X1              =   120
       X2              =   6720
-      Y1              =   6120
-      Y2              =   6120
+      Y1              =   6960
+      Y2              =   6960
    End
    Begin VB.Image Image1 
       BorderStyle     =   1  'Fixed Single
@@ -657,7 +682,8 @@ Dim running As Boolean
 Private Sub bAceptar_Click()
 '*************************************************
 'Author: ^[GS]^
-'Last modified: 24/06/06
+'Last modified: 11/19/09
+'11/19/09: Pato - Now is optional show the frmGuildNews form in the client
 '*************************************************
     Dim sFile As String
     
@@ -684,6 +710,8 @@ Private Sub bAceptar_Click()
     End If
     
     setupMod.sGraficos = sFile
+    
+    setupMod.bGuildNews = Not setupMod.bGuildNews
     
     DoEvents
     
@@ -852,6 +880,14 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
         Kill "C:\DXTest.txt"
     
     End
+End Sub
+
+Private Sub optMostrarNoticias_Click()
+    setupMod.bGuildNews = True
+End Sub
+
+Private Sub optNoMostrar_Click()
+setupMod.bGuildNews = False
 End Sub
 
 Private Sub pMemoria_ChangeValue(NewValue As Long, OldValue As Long)

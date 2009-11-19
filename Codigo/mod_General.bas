@@ -30,6 +30,7 @@ Public Type tSetupMods
     bNoRes          As Boolean ' 24/06/2006 - ^[GS]^
     bNoSoundEffects As Boolean
     sGraficos       As String * 13
+    bGuildNews      As Boolean ' 11/19/09 - Pato
 End Type
 
 Public setupMod As tSetupMods
@@ -49,7 +50,8 @@ End Function
 Public Sub LeerSetup()
 '*************************************************
 'Author: ^[GS]^
-'Last modified: 24/06/06
+'Last modified: 11/19/09
+'11/19/09: Pato - Now is optional show the frmGuildNews form in the client
 '*************************************************
 On Error Resume Next
     If FileExist(App.Path & "\init\ao.dat", vbArchive) Then
@@ -95,6 +97,16 @@ On Error Resume Next
             ElseIf setupMod.sGraficos = "Graficos2.ind" Then
                 frmAOSetup.OptAverage.Value = True
             End If
+        End If
+        
+        setupMod.bGuildNews = Not setupMod.bGuildNews
+        
+        If setupMod.bGuildNews Then
+            frmAOSetup.optMostrarNoticias.Value = True
+            frmAOSetup.optNoMostrar.Value = False
+        Else
+            frmAOSetup.optMostrarNoticias.Value = False
+            frmAOSetup.optNoMostrar.Value = True
         End If
     End If
 End Sub
