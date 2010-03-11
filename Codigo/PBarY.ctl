@@ -423,6 +423,7 @@ End Property
 
 Private Sub RefreshBar(Optional ByVal Value As Long)
 If Value = Empty Then Value = m_Value
+If m_Max - m_Min = 0 Then m_Max = m_Max + 1 'Pato: Add this conditional to prevent division by 0
 GetValue ScaleWidth * (Value - m_Min) / (m_Max - m_Min)
 End Sub
 

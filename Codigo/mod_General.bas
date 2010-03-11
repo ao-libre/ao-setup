@@ -31,6 +31,12 @@ Public Type tSetupMods
     bNoSoundEffects As Boolean
     sGraficos       As String * 13
     bGuildNews      As Boolean ' 11/19/09 - Pato
+    bDie            As Boolean ' 11/23/09 - FragShooter
+    bKill           As Boolean ' 11/23/09 - FragShooter
+    byMurderedLevel As Byte    ' 11/23/09 - FragShooter
+    bActive         As Boolean
+    bGldMsgConsole  As Boolean
+    bCantMsgs       As Byte
 End Type
 
 Public setupMod As tSetupMods
@@ -50,65 +56,71 @@ End Function
 Public Sub LeerSetup()
 '*************************************************
 'Author: ^[GS]^
-'Last modified: 11/19/09
+'Last modified: 03/11/10
 '11/19/09: Pato - Now is optional show the frmGuildNews form in the client
 '*************************************************
 On Error Resume Next
-    If FileExist(App.Path & "\init\ao.dat", vbArchive) Then
-        
-        Dim handle As Integer
-        handle = FreeFile
-        
-        Open App.Path & "\Init\AO.dat" For Binary As handle
-            Get handle, , setupMod
-        Close handle
-        
-        If setupMod.bDinamic Then
-            frmAOSetup.chkDinamico.Value = True
-            frmAOSetup.lCuantoVideo.ForeColor = vbBlack
-            frmAOSetup.pMemoria.EnabledSlider = True
-            frmAOSetup.pMemoria.picFillColor = &H8080FF
-            frmAOSetup.pMemoria.picForeColor = &H80FF80
-        Else
-            frmAOSetup.chkDinamico.Value = False
-            frmAOSetup.lCuantoVideo.ForeColor = &H808080
-            frmAOSetup.pMemoria.EnabledSlider = False
-            frmAOSetup.pMemoria.picFillColor = &H808080
-            frmAOSetup.pMemoria.picForeColor = &HC0C0C0
-        End If
-        
-        If setupMod.byMemory >= 4 And setupMod.byMemory <= 40 Then
-            frmAOSetup.pMemoria.Value = setupMod.byMemory
-        End If
-        
-        frmAOSetup.chkPantallaCompleta.Value = Not setupMod.bNoRes ' 24/06/2006 - ^[GS]^
-        
-        frmAOSetup.chkUserVideo = setupMod.bUseVideo
-        
-        frmAOSetup.chkMusica.Value = Not setupMod.bNoMusic
-        
-        frmAOSetup.chkSonido.Value = Not setupMod.bNoSound
-        
-        frmAOSetup.chkEfectos.Value = Not setupMod.bNoSoundEffects
-        
-        If setupMod.sGraficos <> vbNullString Then
-            If setupMod.sGraficos = "Graficos1.ind" Then
-                frmAOSetup.optSmall.Value = True
-            ElseIf setupMod.sGraficos = "Graficos2.ind" Then
-                frmAOSetup.OptAverage.Value = True
-            End If
-        End If
-        
-        setupMod.bGuildNews = Not setupMod.bGuildNews
-        
-        If setupMod.bGuildNews Then
-            frmAOSetup.optMostrarNoticias.Value = True
-            frmAOSetup.optNoMostrar.Value = False
-        Else
-            frmAOSetup.optMostrarNoticias.Value = False
-            frmAOSetup.optNoMostrar.Value = True
+    If Not FileExist(App.Path & "\INIT\", vbDirectory) Then
+        Call MkDir(App.Path & "\INIT\")
+    End If
+    
+    Dim handle As Integer
+    handle = FreeFile
+    
+    Open App.Path & "\Init\AO.dat" For Binary As handle
+        Get handle, , setupMod
+    Close handle
+    
+    If setupMod.bDinamic Then
+        frmAOSetup.chkDinamico.Value = True
+        frmAOSetup.lCuantoVideo.ForeColor = vbBlack
+        frmAOSetup.pMemoria.EnabledSlider = True
+        frmAOSetup.pMemoria.picFillColor = &H8080FF
+        frmAOSetup.pMemoria.picForeColor = &H80FF80
+    Else
+        frmAOSetup.chkDinamico.Value = False
+        frmAOSetup.lCuantoVideo.ForeColor = &H808080
+        frmAOSetup.pMemoria.EnabledSlider = False
+        frmAOSetup.pMemoria.picFillColor = &H808080
+        frmAOSetup.pMemoria.picForeColor = &HC0C0C0
+    End If
+    
+    If setupMod.byMemory >= 4 And setupMod.byMemory <= 40 Then
+        frmAOSetup.pMemoria.Value = setupMod.byMemory
+    End If
+    
+    frmAOSetup.chkPantallaCompleta.Value = Not setupMod.bNoRes ' 24/06/2006 - ^[GS]^
+    
+    frmAOSetup.chkUserVideo = setupMod.bUseVideo
+    
+    frmAOSetup.chkMusica.Value = Not setupMod.bNoMusic
+    
+    frmAOSetup.chkSonido.Value = Not setupMod.bNoSound
+    
+    frmAOSetup.chkEfectos.Value = Not setupMod.bNoSoundEffects
+    
+    If setupMod.sGraficos <> vbNullString Then
+        If setupMod.sGraficos = "Graficos1.ind" Then
+            frmAOSetup.optSmall.Value = True
+        ElseIf setupMod.sGraficos = "Graficos2.ind" Then
+            frmAOSetup.OptAverage.Value = True
         End If
     End If
+    
+    setupMod.bGuildNews = Not setupMod.bGuildNews
+    
+    If setupMod.bGuildNews Then
+        frmAOSetup.optMostrarNoticias.Value = True
+        frmAOSetup.optNoMostrar.Value = False
+    Else
+        frmAOSetup.optMostrarNoticias.Value = False
+        frmAOSetup.optNoMostrar.Value = True
+    End If
+    
+    If setupMod.bCantMsgs = 0 Then setupMod.bCantMsgs = 5
+
+    frmAOSetup.optConsola.Value = setupMod.bGldMsgConsole
+    frmAOSetup.txtCantMsgs.Text = setupMod.bCantMsgs
 End Sub
 
 Public Function LibraryExist(ByVal file As String, ByVal fileType As VbFileAttribute) As Boolean

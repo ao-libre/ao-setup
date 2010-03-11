@@ -12,25 +12,67 @@ Begin VB.Form frmAOSetup
    ScaleHeight     =   7530
    ScaleWidth      =   6870
    StartUpPosition =   2  'CenterScreen
+   Begin VB.Frame Frame7 
+      Caption         =   "Diálogos de clan"
+      Height          =   735
+      Left            =   4200
+      TabIndex        =   36
+      Top             =   5760
+      Width           =   2535
+      Begin VB.TextBox txtCantMsgs 
+         Height          =   285
+         Left            =   1320
+         MaxLength       =   1
+         TabIndex        =   39
+         Text            =   "5"
+         Top             =   400
+         Width           =   375
+      End
+      Begin VB.OptionButton optPantalla 
+         Caption         =   "En pantalla,"
+         Height          =   255
+         Left            =   120
+         TabIndex        =   38
+         Top             =   450
+         Value           =   -1  'True
+         Width           =   1215
+      End
+      Begin VB.OptionButton optConsola 
+         Caption         =   "En consola"
+         Height          =   195
+         Left            =   120
+         TabIndex        =   37
+         Top             =   200
+         Width           =   1335
+      End
+      Begin VB.Label Label1 
+         Caption         =   "mensajes"
+         Height          =   195
+         Left            =   1750
+         TabIndex        =   40
+         Top             =   480
+         Width           =   735
+      End
+   End
    Begin VB.Frame Frame6 
       Caption         =   "Noticias del clan"
       Height          =   735
       Left            =   120
       TabIndex        =   33
       Top             =   5760
-      Width           =   6615
+      Width           =   3975
       Begin VB.OptionButton optNoMostrar 
          Caption         =   "No mostrarlas"
          Height          =   255
-         Left            =   4200
+         Left            =   2640
          TabIndex        =   35
          Top             =   315
-         Width           =   1335
+         Width           =   1275
       End
       Begin VB.OptionButton optMostrarNoticias 
          Caption         =   "Mostrar noticias al conectarse"
          Height          =   255
-         Left            =   1080
+         Left            =   120
          TabIndex        =   34
          Top             =   315
          Value           =   -1  'True
@@ -325,7 +367,6 @@ Begin VB.Form frmAOSetup
    End
    Begin VB.CheckBox cEjecutar 
       Appearance      =   0  'Flat
-      BackColor       =   &H80000004&
       Caption         =   "Ejecutar el juego al Aceptar"
       ForeColor       =   &H80000008&
       Height          =   255
@@ -712,7 +753,7 @@ Private Sub bAceptar_Click()
     setupMod.sGraficos = sFile
     
     setupMod.bGuildNews = Not setupMod.bGuildNews
-    
+    setupMod.bCantMsgs = Val(txtCantMsgs.Text)
     DoEvents
     
     Dim handle As Integer
@@ -882,12 +923,20 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
     End
 End Sub
 
+Private Sub optConsola_Click()
+    setupMod.bGldMsgConsole = True
+End Sub
+
 Private Sub optMostrarNoticias_Click()
     setupMod.bGuildNews = True
 End Sub
 
 Private Sub optNoMostrar_Click()
-setupMod.bGuildNews = False
+    setupMod.bGuildNews = False
+End Sub
+
+Private Sub optPantalla_Click()
+    setupMod.bGldMsgConsole = False
 End Sub
 
 Private Sub pMemoria_ChangeValue(NewValue As Long, OldValue As Long)
