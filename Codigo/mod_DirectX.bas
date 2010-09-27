@@ -22,12 +22,89 @@ Attribute VB_Name = "mod_DirectX"
 Option Explicit
 
 Private error As Boolean
-Public X As String, Y As String, dxVer As String
+Public X As String, Y As String
 Public directx As New DirectX7
 Public DirectDraw As DirectDraw7
 Public DirectSound As DirectSound
 
 Private Declare Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
+Public Function GetVersion() As String
+'***************************************************
+'Author: Luciano Contartese (C4b3z0n)
+'Last Modification: 09/27/2010
+'Obtiene la versión de DirectX por registro. Sacado de aquí: http://blogs.technet.com/b/heyscriptingguy/archive/2007/01/08/how-can-i-determine-the-version-of-directx-installed-on-a-computer.aspx
+'***************************************************
+On Error GoTo ErrHandler
+
+Const HKEY_LOCAL_MACHINE = &H80000002
+Dim strComputer As String
+Dim objRegistry As Object
+Dim strKeyPath As String
+Dim strValueName As String
+Dim strValue As String
+
+strComputer = "."
+
+Set objRegistry = GetObject("winmgmts:\\" & strComputer & "\root\default:StdRegProv")
+
+strKeyPath = "Software\Microsoft\DirectX"
+strValueName = "Version"
+
+objRegistry.GetStringValue HKEY_LOCAL_MACHINE, strKeyPath, strValueName, strValue
+
+Select Case strValue
+    Case "4.02.0095"
+        GetVersion = "1.0"
+    Case "4.03.00.1096"
+        GetVersion = "2.0"
+    Case "4.04.0068"
+        GetVersion = "3.0"
+    Case "4.04.0069"
+        GetVersion = "3.0"
+    Case "4.05.00.0155"
+        GetVersion = "5.0"
+    Case "4.05.01.1721"
+        GetVersion = "5.0"
+    Case "4.05.01.1998"
+        GetVersion = "5.0"
+    Case "4.06.02.0436"
+        GetVersion = "6.0"
+    Case "4.07.00.0700"
+        GetVersion = "7.0"
+    Case "4.07.00.0716"
+        GetVersion = "7.0a"
+    Case "4.08.00.0400"
+        GetVersion = "8.0"
+    Case "4.08.01.0881"
+        GetVersion = "8.1"
+    Case "4.08.01.0810"
+        GetVersion = "8.1"
+    Case "4.09.0000.0900"
+        GetVersion = "9.0"
+    Case "4.09.00.0900"
+        GetVersion = "9.0"
+    Case "4.09.0000.0901"
+        GetVersion = "9.0a"
+    Case "4.09.00.0901"
+        GetVersion = "9.0a"
+    Case "4.09.0000.0902"
+        GetVersion = "9.0b"
+    Case "4.09.00.0902"
+        GetVersion = "9.0b"
+    Case "4.09.00.0904"
+        GetVersion = "9.0c"
+    Case "4.09.0000.0904"
+        GetVersion = "9.0c"
+    Case Else
+        GetVersion = "No se pudo detectar la versión."
+End Select
+
+Exit Function
+
+ErrHandler: 'Si hay algun error, no se cual puede haber :$
+    GetVersion = "Error"
+    Exit Function
+End Function
 
 Public Sub VersionDirectX()
 '*************************************************
@@ -39,6 +116,7 @@ Public Sub VersionDirectX()
 On Error GoTo ErrHandler
 
     Dim handle As Integer
+    Dim dxVer As String
     
     Call Shell("dxdiag C:\DXTest.txt")
     

@@ -899,7 +899,10 @@ End Sub
 Private Sub Form_Load()
 '*************************************************
 'Author: ^[GS]^
-'Last modified: 10/03/06
+'Last modified: 09/27/2010
+'History:
+' 09/27/2010: C4b3z0n - Ahora la version del directx la brinda otra funcion y asignamos la version del DirectX al label, en vez de acceder desde el sub al label.
+' 10/03/06: Era el last modified anterior (^[GS]^).
 '*************************************************
 On Error Resume Next
     Me.Show
@@ -909,7 +912,7 @@ On Error Resume Next
     Call LeerSetup
     
     Call mod_DirectX.ProbarDirectX
-    Call mod_DirectX.VersionDirectX
+    lDirectX.Caption = mod_DirectX.GetVersion()
 End Sub
 
 Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
