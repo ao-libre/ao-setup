@@ -673,11 +673,18 @@ Attribute VB_Exposed = False
 
 Option Explicit
 
+Private Const URL_DOWNLOAD As String = "http://argentumonline.3dgames.com.ar/autoupdate/"
 ' MD5 de Referencia:
 ' RICHTX32.OCX 722435ba4d18f1704b43e823a12e489a
 ' CSWSK32.OCX 5181704b2772e050e4a8331e15ee4bb4
 ' MSINET.OCX 40d81470a19269d88bf44e766be7f84a
 ' MSWINSCK.OCX 3d8fd62d17a44221e07d5c535950449b
+
+Private Const MD5_1 As String = "cefd956a1ef122cda4d53007bab6c694"
+Private Const MD5_2 As String = "045a16822822426c305ea7280270a3d6"
+Private Const MD5_3 As String = "5181704b2772e050e4a8331e15ee4bb4"
+Private Const MD5_4 As String = "e8a2190a9e8ee5e5d2e0b599bbf9dda6"
+Private Const MD5_5 As String = "d268668751ee22997d7ef1417034cb04"
 
 Public descargando As Boolean
 
@@ -690,98 +697,77 @@ Private Sub bCancelar_Click()
 Unload Me
 End Sub
 
-Sub LibError(ByVal Index As Byte, ByVal Solucion As String)
+Sub LibError(ByVal index As Byte, ByVal Solucion As String)
 '*************************************************
 'Author: ^[GS]^
 'Last modified: 10/03/06
 '*************************************************
-    lblOK(Index).Caption = "ERROR"
-    lblOK(Index).ForeColor = RGB(255, 0, 0)
-    lblOK(Index).Visible = True
-    cSolucion(Index).Caption = Solucion
-    cSolucion(Index).Visible = True
-    LibName(Index).BackColor = lblOK(Index).ForeColor
+    lblOK(index).Caption = "ERROR"
+    lblOK(index).ForeColor = RGB(255, 0, 0)
+    lblOK(index).Visible = True
+    cSolucion(index).Caption = Solucion
+    cSolucion(index).Visible = True
+    LibName(index).BackColor = lblOK(index).ForeColor
 End Sub
 
-Sub LibOK(ByVal Index As Byte)
+Sub LibOK(ByVal index As Byte)
 '*************************************************
 'Author: ^[GS]^
 'Last modified: 10/03/06
 '*************************************************
-    lblOK(Index).Caption = "OK"
-    lblOK(Index).ForeColor = &H8000&
-    lblOK(Index).Visible = True
-    cSolucion(Index).Visible = False
-    LibName(Index).BackColor = lblOK(Index).ForeColor
+    lblOK(index).Caption = "OK"
+    lblOK(index).ForeColor = &H8000&
+    lblOK(index).Visible = True
+    cSolucion(index).Visible = False
+    LibName(index).BackColor = lblOK(index).ForeColor
 End Sub
 
-Private Sub cSolucion_Click(Index As Integer)
+Private Sub cSolucion_Click(index As Integer)
 '*************************************************
 'Author: ^[GS]^
 'Last modified: 10/01/07
 'Last Modified by: Lucas Tavolaro Ortiz (Tavo)
 'De ahora en mas se utiliza la funcion LibraryExist()
 '*************************************************
-    If cSolucion(Index).Caption = "&Registrar" Then
+    Dim sName As String
+    
+    Select Case index
+        Case 0  ' inet
+            sName = "MSINET.OCX"
+        
+        Case 1 'AA
+            sName = "aamd532.dll"
+            
+        Case 2  ' Rich
+            sName = "RICHTX32.OCX"
+        
+        Case 3  ' CS
+            sName = "CSWSK32.OCX"
+        
+        Case 4  ' WS
+            sName = "MSWINSCK.OCX"
+        
+        Case 5 'MSCOMCTL
+            sName = "MSCOMCTL.OCX"
+    End Select
+        
+    If cSolucion(index).Caption = "&Registrar" Then
         ' registrar
         Dim fsoObject As FileSystemObject
         
-        Select Case Index
-            Case 0  ' inet
-                If Not LibraryExist("MSINET.OCX", vbNormal) Then
-                    MsgBox "ERROR, el archivo MSINET.OCX descargado tiene que ser copiado a este directorio.", vbCritical, "Argentum Online Setup"
-                Else
-                    Set fsoObject = New FileSystemObject
-                    fsoObject.CopyFile "MSINET.OCX", fsoObject.GetSpecialFolder(SystemFolder) & "\", True
-                    If Err Then MsgBox Err.Description
-                    Shell "regsvr32 /s " & fsoObject.GetSpecialFolder(SystemFolder) & "\MSINET.OCX"
-                    MsgBox "Copia y registro realizados con exito.", vbOKOnly, "Argentum Online Setup"
-                End If
+        If Not LibraryExist(sName, vbNormal) Then
+            MsgBox "ERROR, el archivo " & sName & " descargado tiene que ser copiado a este directorio.", vbCritical, "Argentum Online Setup"
+        Else
+            Set fsoObject = New FileSystemObject
             
-            Case 2  ' Rich
-                If Not LibraryExist("richtx32.ocx", vbNormal) Then
-                    MsgBox "ERROR, el archivo RichTx32.ocx descargado tiene que ser copiado a este directorio.", vbCritical, "Argentum Online Setup"
-                Else
-                    Set fsoObject = New FileSystemObject
-                    fsoObject.CopyFile "RichTx32.ocx", fsoObject.GetSpecialFolder(SystemFolder) & "\", True
-                    If Err Then MsgBox Err.Description
-                    Shell "regsvr32 /s " & fsoObject.GetSpecialFolder(SystemFolder) & "\RichTx32.ocx"
-                    MsgBox "Copia y registro realizados con exito.", vbOKOnly, "Argentum Online Setup"
-                End If
-            
-            Case 3  ' CS
-                If Not LibraryExist("CSWSK32.OCX", vbNormal) Then
-                    MsgBox "ERROR, el archivo CSWSK32.OCX descargado tiene que ser copiado a este directorio.", vbCritical, "Argentum Online Setup"
-                Else
-                    Set fsoObject = New FileSystemObject
-                    fsoObject.CopyFile "CSWSK32.OCX", fsoObject.GetSpecialFolder(SystemFolder) & "\", True
-                    If Err Then MsgBox Err.Description
-                    Shell "regsvr32 /s " & fsoObject.GetSpecialFolder(SystemFolder) & "\CSWSK32.OCX"
-                    MsgBox "Copia y registro realizados con exito.", vbOKOnly, "Argentum Online Setup"
-                End If
-            
-            Case 4  ' WS
-                If Not LibraryExist("MSWINSCK.OCX", vbNormal) Then
-                    MsgBox "ERROR, el archivo MSWINSCK.OCX descargado tiene que ser copiado a este directorio.", vbCritical, "Argentum Online Setup"
-                Else
-                    Set fsoObject = New FileSystemObject
-                    fsoObject.CopyFile "MSWINSCK.OCX", fsoObject.GetSpecialFolder(SystemFolder) & "\", True
-                    If Err Then MsgBox Err.Description
-                    Shell "regsvr32 /s " & fsoObject.GetSpecialFolder(SystemFolder) & "\MSWINSCK.OCX"
-                    MsgBox "Copia y registro realizados con exito.", vbOKOnly, "Argentum Online Setup"
-                End If
-            
-            Case 5 'MSCOMCTL
-                If Not LibraryExist("MSCOMCTL.OCX", vbNormal) Then
-                    MsgBox "ERROR, el archivo MSCOMCTL.OCX descargado tiene que ser copiado a este directorio.", vbCritical, "Argentum Online Setup"
-                Else
-                    Set fsoObject = New FileSystemObject
-                    fsoObject.CopyFile "MSCOMCTL.OCX", fsoObject.GetSpecialFolder(SystemFolder) & "\", True
-                    If Err Then MsgBox Err.Description
-                    Shell "regsvr32 /s " & fsoObject.GetSpecialFolder(SystemFolder) & "\MSCOMCTL.OCX"
-                    MsgBox "Copia y registro realizados con exito.", vbOKOnly, "Argentum Online Setup"
-                End If
-        End Select
+            fsoObject.CopyFile sName, fsoObject.GetSpecialFolder(SystemFolder) & "\", True
+            If Err Then MsgBox Err.Description
+            Shell "regsvr32 /s " & fsoObject.GetSpecialFolder(SystemFolder) & sName
+            MsgBox "Copia y registro realizados con éxito.", vbOKOnly, "Argentum Online Setup"
+        
+            Set fsoObject = Nothing
+        End If
+        
         DoEvents
         Call cVerificar_Click
     Else
@@ -793,198 +779,50 @@ Private Sub cSolucion_Click(Index As Integer)
         
         Dim rta As VbMsgBoxResult
         
-        Select Case Index
-            Case 0  ' inet
-                ' revisar :O
-                rta = MsgBox("Necesita descargar el archivo MSINET.OCX." & vbCrLf & _
-                    "Es necesario que este archivo sea descargando manualmente y colocado en el directorio del juego, si esta de acuerdo precione Si", vbInformation + vbYesNo, "Solución al problema")
-                
-                If rta = vbYes Then
-                    Call ShellExecute(hwnd, "open", "http://ao.alkon.com.ar/descargas/MSINET.OCX", vbNullString, vbNullString, SW_SHOWNORMAL)
-                End If
+        If index = 0 Then 'El inet es un caso especial, si no lo tenemos es medio difícil usarlo para bajarse a si mismo :P
+            rta = MsgBox("Necesita descargar el archivo " & sName & "." & vbCrLf & _
+                "Es necesario que este archivo sea descargando manualmente y colocado en el directorio del juego, si esta de acuerdo presione Sí", vbInformation + vbYesNo, "Solución al problema")
             
-            Case 1  ' AA
-                rta = MsgBox("Necesita descargar el archivo AAMD532.DLL." & vbCrLf & _
-                    "Si desea descargarlo y registrarlo automaticamente precione Si.", vbYesNo, "Solución al problema")
-                
-                    If rta = vbYes Then
-                    'Bajarlo
-                    descargando = True
-                    
-                    If ChkProxy.Value = 1 Then
-                        Call DownloadForm.DownloadFile("http://ao.alkon.com.ar/descargas/AAMD532.DLL", "AAMD532.DLL", , , 2, txtProxy.Text)
-                    Else
-                        Call DownloadForm.DownloadFile("http://ao.alkon.com.ar/descargas/AAMD532.DLL", "AAMD532.DLL")
-                    End If
-                    
-                    If (Not DownloadForm.DownloadSuccess) Or (DownloadForm.BotonCancel = True) Then
-                       Unload DownloadForm
-                       MsgBox "Descarga cancelada", vbInformation, "Error no solucionado"
-                       Exit Sub
-                    Else
-                       Unload DownloadForm
-                    End If
-                    
-                    descargando = False
-                    
-                    If FileExist("aamd532.dll", vbNormal) Then
-                        If mod_MD5.MD5File("aamd532.dll") <> "cefd956a1ef122cda4d53007bab6c694" Then
-                            MsgBox "No se puede comprobar la originalidad del archivo descargado, no se instalara.", vbCritical, "Error en MD5"
-                            Exit Sub
-                        Else
-                            DoEvents
-                            Call cVerificar_Click
-                        End If
-                    Else
-                        MsgBox "No se pudo descargar el archivo", vbInformation, "Falta archivo"
-                    End If
-                End If
-                
-            Case 2  ' Rich
-                rta = MsgBox("Necesita descargar el archivo RICHTX32.OCX." & vbCrLf & _
-                    "Si desea descargarlo y registrarlo automaticamente precione Si.", vbYesNo, "Solución al problema")
-                
-                If rta = vbYes Then
-                    'Bajarlo
-                    descargando = True
-                    If ChkProxy.Value = 1 Then
-                        Call DownloadForm.DownloadFile("http://ao.alkon.com.ar/descargas/RICHTX32.OCX", "RICHTX32.OCX", , , 2, txtProxy.Text)
-                    Else
-                        Call DownloadForm.DownloadFile("http://ao.alkon.com.ar/descargas/RICHTX32.OCX", "RICHTX32.OCX")
-                    End If
-                    
-                    If (Not DownloadForm.DownloadSuccess) Or (DownloadForm.BotonCancel = True) Then
-                       Unload DownloadForm
-                       MsgBox "Descarga cancelada", vbInformation, "Error no solucionado"
-                       Exit Sub
-                    Else
-                       Unload DownloadForm
-                    End If
-                    
-                    descargando = False
-                    
-                    If FileExist("richtx32.ocx", vbNormal) Then
-                        If mod_MD5.MD5File("richtx32.ocx") <> "722435ba4d18f1704b43e823a12e489a" Then
-                            MsgBox "No se puede comprobar la originalidad del archivo descargado, no se instalara.", vbCritical, "Error en MD5"
-                            Exit Sub
-                        Else
-                            DoEvents
-                            Call cVerificar_Click
-                        End If
-                    Else
-                        MsgBox "No se pudo descargar el archivo", vbInformation, "Falta archivo"
-                    End If
-                End If
+            If rta = vbYes Then
+                Call ShellExecute(hwnd, "open", URL_DOWNLOAD & sName, vbNullString, vbNullString, SW_SHOWNORMAL)
+            End If
+        Else
+            rta = MsgBox("Necesita descargar el archivo " & sName & "." & vbCrLf & _
+                "Si desea descargarlo y registrarlo automaticamente precione Si.", vbYesNo, "Solución al problema")
             
-            Case 3  ' CS
-                rta = MsgBox("Necesita descargar el archivo CSWSK32.OCX." & Chr(10) & _
-                    "Si desea descargarlo y registrarlo automaticamente precione Si.", vbYesNo, "Solución al problema")
+            If rta = vbYes Then
+                'Bajarlo
+                descargando = True
                 
-                If rta = vbYes Then
-                    'Bajarlo
-                    descargando = True
-                    If ChkProxy.Value = 1 Then
-                        Call DownloadForm.DownloadFile("http://ao.alkon.com.ar/descargas/CSWSK32.OCX", "CSWSK32.OCX", , , 2, txtProxy.Text)
-                    Else
-                        Call DownloadForm.DownloadFile("http://ao.alkon.com.ar/descargas/CSWSK32.OCX", "CSWSK32.OCX")
-                    End If
-                    
-                    If (Not DownloadForm.DownloadSuccess) Or (DownloadForm.BotonCancel = True) Then
-                       Unload DownloadForm
-                       MsgBox "Descarga cancelada", vbInformation, "Error no solucionado"
-                       Exit Sub
-                    Else
-                       Unload DownloadForm
-                    End If
-                    
-                    descargando = False
-                    
-                    If FileExist("cswsk32.ocx", vbNormal) Then
-                        If mod_MD5.MD5File("cswsk32.ocx") <> "5181704b2772e050e4a8331e15ee4bb4" Then
-                            MsgBox "No se puede comprobar la originalidad del archivo descargado, no se instalara.", vbCritical, "Error en MD5"
-                            Exit Sub
-                        Else
-                            DoEvents
-                            Call cVerificar_Click
-                        End If
-                    Else
-                        MsgBox "No se pudo descargar el archivo", vbInformation, "Falta archivo"
-                    End If
+                If ChkProxy.Value = 1 Then
+                    Call DownloadForm.DownloadFile(URL_DOWNLOAD & sName, sName, , , 2, txtProxy.Text)
+                Else
+                    Call DownloadForm.DownloadFile(URL_DOWNLOAD & sName, sName)
                 End If
-            
-            Case 4  ' WS
-                rta = MsgBox("Necesita descargar el archivo MSWINSCK.OCX." & Chr(10) & _
-                    "Si desea descargarlo y registrarlo automaticamente precione Si.", vbYesNo, "Solución al problema")
                 
-                If rta = vbYes Then
-                    'Bajarlo
-                    descargando = True
-                    
-                    If ChkProxy.Value = 1 Then
-                        Call DownloadForm.DownloadFile("http://ao.alkon.com.ar/descargas/MSWINSCK.OCX", "MSWINSCK.OCX", , , 2, txtProxy.Text)
-                    Else
-                        Call DownloadForm.DownloadFile("http://ao.alkon.com.ar/descargas/MSWINSCK.OCX", "MSWINSCK.OCX")
-                    End If
-                    
-                    If (Not DownloadForm.DownloadSuccess) Or (DownloadForm.BotonCancel = True) Then
-                       Unload DownloadForm
-                       MsgBox "Descarga cancelada", vbInformation, "Error no solucionado"
-                       Exit Sub
-                    Else
-                       Unload DownloadForm
-                    End If
-                    
-                    descargando = False
-                    
-                    If FileExist("MSWINSCK.OCX", vbNormal) Then
-                        If mod_MD5.MD5File("MSWINSCK.OCX") <> "3d8fd62d17a44221e07d5c535950449b" Then
-                            MsgBox "No se puede comprobar la originalidad del archivo descargado, no se instalara.", vbCritical, "Error en MD5"
-                            Exit Sub
-                        Else
-                            DoEvents
-                            Call cVerificar_Click
-                        End If
-                    Else
-                        MsgBox "No se pudo descargar el archivo", vbInformation, "Falta archivo"
-                    End If
+                If (Not DownloadForm.DownloadSuccess) Or (DownloadForm.BotonCancel = True) Then
+                   Unload DownloadForm
+                   MsgBox "Descarga cancelada", vbInformation, "Error no solucionado"
+                   Exit Sub
+                Else
+                   Unload DownloadForm
                 End If
-            
-            Case 5 'MSCOMCTL
-                rta = MsgBox("Necesita descargar el archivo MSCOMCTL.OCX." & Chr(10) & _
-                    "Si desea descargarlo y registrarlo automaticamente precione Si.", vbYesNo, "Solución al problema")
                 
-                If rta = vbYes Then
-                    'Bajarlo
-                    descargando = True
-                    If ChkProxy.Value = 1 Then
-                        Call DownloadFormSimple.DownloadFile("http://ao.alkon.com.ar/descargas/MSCOMCTL.OCX", "MSCOMCTL.OCX", , , 2, txtProxy.Text)
+                descargando = False
+                
+                If FileExist(sName, vbNormal) Then
+                    If mod_MD5.MD5File(sName) <> getMD5OriginalFile(index) Then
+                        MsgBox "No se puede comprobar la originalidad del archivo descargado, no se instalara.", vbCritical, "Error en MD5"
+                        Exit Sub
                     Else
-                        Call DownloadFormSimple.DownloadFile("http://ao.alkon.com.ar/descargas/MSCOMCTL.OCX", "MSCOMCTL.OCX")
+                        DoEvents
+                        Call cVerificar_Click
                     End If
-                    
-                    If (Not DownloadFormSimple.DownloadSuccess) Or (DownloadFormSimple.BotonCancel = True) Then
-                       Unload DownloadFormSimple
-                       MsgBox "Descarga cancelada", vbInformation, "Error no solucionado"
-                       Exit Sub
-                    Else
-                       Unload DownloadFormSimple
-                    End If
-                    
-                    descargando = False
-                    
-                    If FileExist("MSCOMCTL.OCX", vbNormal) Then
-                        If mod_MD5.MD5File("MSCOMCTL.OCX") <> "ECC7D7F0D3446DE36045D1D9E964FAFE" Then
-                            MsgBox "No se puede comprobar la originalidad del archivo descargado, no se instalara.", vbCritical, "Error en MD5"
-                            Exit Sub
-                        Else
-                            DoEvents
-                            Call cVerificar_Click
-                        End If
-                    Else
-                        MsgBox "No se pudo descargar el archivo", vbInformation, "Falta archivo"
-                    End If
+                Else
+                    MsgBox "No se pudo descargar el archivo", vbInformation, "Falta archivo"
                 End If
-        End Select
+            End If
+        End If
     End If
 End Sub
 
@@ -1075,3 +913,17 @@ DoEvents
 Call cVerificar_Click
 End Sub
 
+Private Function getMD5OriginalFile(ByVal index As Byte) As String
+Select Case index
+    Case 1
+        getMD5OriginalFile = MD5_1
+    Case 2
+        getMD5OriginalFile = MD5_2
+    Case 3
+        getMD5OriginalFile = MD5_3
+    Case 4
+        getMD5OriginalFile = MD5_4
+    Case 5
+        getMD5OriginalFile = MD5_5
+End Select
+End Function
