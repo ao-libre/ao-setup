@@ -31,48 +31,46 @@ Option Explicit
 ' ProgressBarSlider Pro ActiveX © 2000 by Nik Tupkalov
 ' This ActiveX Control was writen by Nik Tupkalov
 'Default Property Values:
-Private Const m_def_Style = 0
-Private Const m_def_BackStyle = 0
-Private Const m_def_picForeColor = &H404040
-Private Const m_def_picFillColor = &HFFFF00
-Private Const m_def_picStep = 50
-Private Const m_def_MousePointer = 9
-Private Const m_def_EnabledSlider = True
-Private Const m_def_BorderStyle = 0
-Private Const m_def_Value = 25
-Private Const m_def_Min = 0
-Private Const m_def_Max = 100
-
+Const m_def_Style = 0
+Const m_def_BackStyle = 0
+Const m_def_picForeColor = &H404040
+Const m_def_picFillColor = &HFFFF00
+Const m_def_picStep = 50
+Const m_def_MousePointer = 9
+Const m_def_EnabledSlider = True
+Const m_def_BorderStyle = 0
+Const m_def_Value = 25
+Const m_def_Min = 0
+Const m_def_Max = 100
 'Property Variables:
-Private m_Style As bView
-Private m_BackStyle As bStyle
-Private m_picForeColor As OLE_COLOR
-Private m_picFillColor As OLE_COLOR
-Private m_picStep As Integer
-Private m_MousePointer As bMouse
-Private m_EnabledSlider As Boolean
-Private m_BorderStyle As rStyle
-Private m_Value As Long
-Private m_Min As Integer
-Private m_Max As Integer
-Private Ref As Boolean
-
+Dim m_Style As bView
+Dim m_BackStyle As bStyle
+Dim m_picForeColor As OLE_COLOR
+Dim m_picFillColor As OLE_COLOR
+Dim m_picStep As Integer
+Dim m_MousePointer As bMouse
+Dim m_EnabledSlider As Boolean
+Dim m_BorderStyle As rStyle
+Dim m_Value As Long
+Dim m_Min As Integer
+Dim m_Max As Integer
+Dim Ref As Boolean
 'Event Declarations:
-Public Event Click()
-Public Event ChangeValue(NewValue As Long, OldValue As Long)
-Public Event MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
-Public Event MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
-Public Event MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Event Click()
+Event ChangeValue(NewValue As Long, OldValue As Long)
+Event MouseDown(Button As Integer, Shift As Integer, X As Single, y As Single)
+Event MouseMove(Button As Integer, Shift As Integer, X As Single, y As Single)
+Event MouseUp(Button As Integer, Shift As Integer, X As Single, y As Single)
 
 Public Enum bView
     Normal
     Digital
-End Enum
+   End Enum
    
 Public Enum bStyle
     Flat
     b3D
-End Enum
+   End Enum
 
 Public Enum rStyle
     Transparent
@@ -82,7 +80,7 @@ Public Enum rStyle
     DashDot
     DashDotDot
     InsideSolid
-End Enum
+    End Enum
     
 Public Enum bMouse
     Default
@@ -102,79 +100,68 @@ Public Enum bMouse
     ArrowH
     SizeAll
     Custom = 99
-End Enum
+   End Enum
    
 Private Sub UserControl_Click()
 RaiseEvent Click
 End Sub
 
-Private Sub UserControl_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
-    RaiseEvent MouseDown(Button, Shift, X, Y)
-    
+Private Sub UserControl_MouseDown(Button As Integer, Shift As Integer, X As Single, y As Single)
+RaiseEvent MouseDown(Button, Shift, X, y)
     If Not m_EnabledSlider Then
-        UserControl.MousePointer = Default
-        Exit Sub
+        UserControl.MousePointer = Default: Exit Sub
     Else
-        UserControl.MousePointer = m_MousePointer
+UserControl.MousePointer = m_MousePointer
     End If
-    
-    GetValue X
+            GetValue X
 End Sub
 
-Private Sub UserControl_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
-    RaiseEvent MouseMove(Button, Shift, X, Y)
-    
-    If Not m_EnabledSlider Then
-        UserControl.MousePointer = Default
-        Exit Sub
-    Else
-        UserControl.MousePointer = m_MousePointer
-    End If
-    
+Private Sub UserControl_MouseMove(Button As Integer, Shift As Integer, X As Single, y As Single)
+RaiseEvent MouseMove(Button, Shift, X, y)
+        If Not m_EnabledSlider Then
+    UserControl.MousePointer = Default: Exit Sub
+        Else
+            UserControl.MousePointer = m_MousePointer
+        End If
     If Button <> 1 Then Exit Sub
-    GetValue X
+            GetValue X
 End Sub
 
 Private Sub GetValue(ByVal X As Single)
-    Static o_Value As Long
-    Static X1 As Single
-    
     If X < 0 Then X = 0
-    If X > ScaleWidth Then X = ScaleWidth
+        If X > ScaleWidth Then X = ScaleWidth
 
-    o_Value = m_Value
+Static o_Value As Long
+
+        o_Value = m_Value
     m_Value = X / ScaleWidth * (m_Max - m_Min) + m_Min
-    
-    If m_Style = Normal Then
-        If Ref Then
-            Ref = False
-            Cls
-        End If
-        
-        Shape1.Visible = True
-        Shape1.Width = ScaleWidth * (m_Value - m_Min) / (m_Max - m_Min + 1)
+        If m_Style = Normal Then
+    If Ref Then Ref = False: Cls
+            Shape1.Visible = True
+        Shape1.Width = ScaleWidth * (m_Value - m_Min) / (m_Max - m_Min)
     Else
         Shape1.Visible = False
-        If Ref Then
-            Ref = False
-            Cls
-        End If
+            If Ref Then Ref = False: Cls
+Static X1 As Single
 
-        For X1 = 0 To ScaleWidth Step m_picStep
-            If X1 <= X Then
-                Line (X1, 0)-(X1, ScaleHeight), m_picFillColor, BF
-            Else
-                Line (X1, 0)-(X1, ScaleHeight), m_picForeColor, BF
-            End If
-        Next X1
+            For X1 = 0 To ScaleWidth Step m_picStep
+        If X1 <= X Then
+            Line (X1, 0)-(X1, ScaleHeight), m_picFillColor, BF
+        Else
+            Line (X1, 0)-(X1, ScaleHeight), m_picForeColor, BF
+        End If
+            Next X1
     End If
-    
     PropertyChanged "Value"
-    RaiseEvent ChangeValue(m_Value, o_Value)
+RaiseEvent ChangeValue(m_Value, o_Value)
 End Sub
 
-Private Sub UserControl_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
-RaiseEvent MouseUp(Button, Shift, X, Y)
+Private Sub UserControl_MouseUp(Button As Integer, Shift As Integer, X As Single, y As Single)
+RaiseEvent MouseUp(Button, Shift, X, y)
+End Sub
+
+Private Sub UserControl_Paint()
+Ref = True: RefreshBar
 End Sub
 
 Private Sub UserControl_Resize()
@@ -184,16 +171,15 @@ End Sub
 
 'WARNING! DO NOT REMOVE OR MODIFY THE FOLLOWING COMMENTED LINES!
 'MemberInfo=7,0,0,0
-Public Property Get Value() As Long
-    Value = m_Value
+Public Property Get value() As Long
+    value = m_Value
 End Property
 
-Public Property Let Value(ByVal New_Value As Long)
-    m_Value = New_Value
+Public Property Let value(ByVal New_Value As Long)
+        m_Value = New_Value
     If m_Value < m_Min Then m_Value = m_Min
-    If m_Value > m_Max Then m_Value = m_Max
-        
-    PropertyChanged "Value"
+If m_Value > m_Max Then m_Value = m_Max
+        PropertyChanged "Value"
     RefreshBar
 End Property
 
@@ -205,8 +191,8 @@ End Property
 
 Public Property Let Min(ByVal New_Min As Integer)
     m_Min = New_Min
-    PropertyChanged "Min"
-    Shape1.Width = ScaleWidth * (m_Value - m_Min) / (m_Max - m_Min)
+  PropertyChanged "Min"
+Shape1.Width = ScaleWidth * (m_Value - m_Min) / (m_Max - m_Min)
 End Property
 
 'WARNING! DO NOT REMOVE OR MODIFY THE FOLLOWING COMMENTED LINES!
@@ -217,8 +203,8 @@ End Property
 
 Public Property Let Max(ByVal New_Max As Integer)
     m_Max = New_Max
-    PropertyChanged "Max"
-    Shape1.Width = ScaleWidth * (m_Value - m_Min) / (m_Max - m_Min)
+  PropertyChanged "Max"
+Shape1.Width = ScaleWidth * (m_Value - m_Min) / (m_Max - m_Min)
 End Property
 
 'Initialize Properties for User Control
@@ -263,8 +249,7 @@ Private Sub UserControl_ReadProperties(PropBag As PropertyBag)
 End Sub
 
 Private Sub UserControl_Show()
-Ref = True
-RefreshBar
+Ref = True: RefreshBar
 End Sub
 
 'Write property values to storage
@@ -332,8 +317,8 @@ End Property
 Public Property Let BorderStyle(ByVal New_BorderStyle As rStyle)
     m_BorderStyle = New_BorderStyle
     PropertyChanged "BorderStyle"
-    Shape1.BorderStyle = m_BorderStyle
-    RefreshBar
+Shape1.BorderStyle = m_BorderStyle
+RefreshBar
 End Property
 
 'WARNING! DO NOT REMOVE OR MODIFY THE FOLLOWING COMMENTED LINES!
@@ -384,8 +369,8 @@ Public Property Let BackStyle(ByVal New_BackStyle As bStyle)
     m_BackStyle = New_BackStyle
     PropertyChanged "BackStyle"
     UserControl.BorderStyle = m_BackStyle
-    Ref = True
-    RefreshBar
+Ref = True
+RefreshBar
 End Property
 
 'WARNING! DO NOT REMOVE OR MODIFY THE FOLLOWING COMMENTED LINES!
@@ -397,7 +382,7 @@ End Property
 Public Property Let picForeColor(ByVal New_picForeColor As OLE_COLOR)
     m_picForeColor = New_picForeColor
     PropertyChanged "picForeColor"
-    If m_Style = Digital Then RefreshBar
+If m_Style = Digital Then RefreshBar
 End Property
 
 'WARNING! DO NOT REMOVE OR MODIFY THE FOLLOWING COMMENTED LINES!
@@ -409,7 +394,7 @@ End Property
 Public Property Let picFillColor(ByVal New_picFillColor As OLE_COLOR)
     m_picFillColor = New_picFillColor
     PropertyChanged "picFillColor"
-    If m_Style = Digital Then RefreshBar
+If m_Style = Digital Then RefreshBar
 End Property
 
 'WARNING! DO NOT REMOVE OR MODIFY THE FOLLOWING COMMENTED LINES!
@@ -420,32 +405,29 @@ End Property
 
 Public Property Let picStep(ByVal New_picStep As Integer)
     If New_picStep < 10 Then New_picStep = 10
-    If New_picStep > ScaleWidth / 10 Then New_picStep = ScaleWidth / 10
-    
+If New_picStep > ScaleWidth / 10 Then New_picStep = ScaleWidth / 10
     m_picStep = New_picStep
-    PropertyChanged "picStep"
-    
-    If m_Style = Digital Then
-        Ref = True
-        RefreshBar
-    End If
+        PropertyChanged "picStep"
+If m_Style = Digital Then Ref = True: RefreshBar
 End Property
 
 'WARNING! DO NOT REMOVE OR MODIFY THE FOLLOWING COMMENTED LINES!
 'MemberInfo=24,0,0,0
-Public Property Get Style() As bView
-    Style = m_Style
+Public Property Get style() As bView
+    style = m_Style
 End Property
 
-Public Property Let Style(ByVal New_Style As bView)
+Public Property Let style(ByVal New_Style As bView)
     Ref = True
     m_Style = New_Style
     PropertyChanged "Style"
-    RefreshBar
+RefreshBar
 End Property
 
-Private Sub RefreshBar(Optional ByVal Value As Long)
-If Value = Empty Then Value = m_Value
-If m_Max - m_Min = 0 Then m_Max = m_Max + 1 'Pato: Add this conditional to prevent division by 0
-GetValue ScaleWidth * (Value - m_Min) / (m_Max - m_Min)
+
+Private Sub RefreshBar(Optional ByVal value As Long)
+If value = Empty Then value = m_Value
+GetValue ScaleWidth * (value - m_Min) / (m_Max - m_Min)
 End Sub
+
+

@@ -72,7 +72,7 @@ Begin VB.Form frmAbout
       Width           =   4095
    End
    Begin VB.Label lblCredits2 
-      Caption         =   "versión 2.0 - Copyright © 2006 por ^[GS]^"
+      Caption         =   "versión 2.1 - Copyright © 2012 por ^[GS]^"
       Height          =   255
       Left            =   120
       TabIndex        =   6
@@ -97,7 +97,7 @@ Begin VB.Form frmAbout
       Y2              =   1242.392
    End
    Begin VB.Label lblDescription 
-      Caption         =   "Aplicación de configuración y resolución de problemas de Argentum Online."
+      Caption         =   "Aplicación de configuración y resolución de problemas de GS-Zone Argentum Online."
       ForeColor       =   &H00000000&
       Height          =   450
       Left            =   1050

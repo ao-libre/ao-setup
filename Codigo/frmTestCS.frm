@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{33101C00-75C3-11CF-A8A0-444553540000}#1.0#0"; "CSWSK32.OCX"
+Object = "{33101C00-75C3-11CF-A8A0-444553540000}#1.0#0"; "CSWSK32.ocx"
 Begin VB.Form frmTestCS 
    BorderStyle     =   1  'Fixed Single
    ClientHeight    =   660

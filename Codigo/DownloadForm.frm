@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{48E59290-9880-11CF-9754-00AA00C00908}#1.0#0"; "MSINET.ocx"
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "Mscomctl.ocx"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Begin VB.Form DownloadForm 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Descargando archivo"
@@ -305,7 +305,7 @@ If intKFileLength = 0 Then
 End If
 
 ' Prepare display
-ProgressBar.Value = 0
+ProgressBar.value = 0
 ProgressBar.Max = intKFileLength
 'Animation1.Play
 DoEvents
@@ -347,7 +347,7 @@ If Inet1.ResponseCode = 0 Then
                            " copiado)" & vbCr & vbCr & _
                            "Velocidad: " & _
                            Format(sglRate, "###,##0.0") & " KB/Sec"
-            ProgressBar.Value = intKReceived
+            ProgressBar.value = intKReceived
             Caption = Format((intKReceived / intKFileLength), "##0%") & _
                       " de " & strFile & " completado"
         End If

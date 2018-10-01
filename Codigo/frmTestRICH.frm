@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "richtx32.ocx"
+Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "richtx32.Ocx"
 Begin VB.Form frmTestRICH 
    BorderStyle     =   1  'Fixed Single
    ClientHeight    =   1095
@@ -22,6 +22,7 @@ Begin VB.Form frmTestRICH
       _ExtentX        =   2355
       _ExtentY        =   1508
       _Version        =   393217
+      Enabled         =   -1  'True
       TextRTF         =   $"frmTestRICH.frx":0442
    End
 End
