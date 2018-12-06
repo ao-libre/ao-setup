@@ -58,9 +58,9 @@ Dim Ref As Boolean
 'Event Declarations:
 Event Click()
 Event ChangeValue(NewValue As Long, OldValue As Long)
-Event MouseDown(Button As Integer, Shift As Integer, X As Single, y As Single)
-Event MouseMove(Button As Integer, Shift As Integer, X As Single, y As Single)
-Event MouseUp(Button As Integer, Shift As Integer, X As Single, y As Single)
+Event MouseDown(Button As Integer, Shift As Integer, x As Single, Y As Single)
+Event MouseMove(Button As Integer, Shift As Integer, x As Single, Y As Single)
+Event MouseUp(Button As Integer, Shift As Integer, x As Single, Y As Single)
 
 Public Enum bView
     Normal
@@ -106,35 +106,35 @@ Private Sub UserControl_Click()
 RaiseEvent Click
 End Sub
 
-Private Sub UserControl_MouseDown(Button As Integer, Shift As Integer, X As Single, y As Single)
-RaiseEvent MouseDown(Button, Shift, X, y)
+Private Sub UserControl_MouseDown(Button As Integer, Shift As Integer, x As Single, Y As Single)
+RaiseEvent MouseDown(Button, Shift, x, Y)
     If Not m_EnabledSlider Then
         UserControl.MousePointer = Default: Exit Sub
     Else
 UserControl.MousePointer = m_MousePointer
     End If
-            GetValue X
+            GetValue x
 End Sub
 
-Private Sub UserControl_MouseMove(Button As Integer, Shift As Integer, X As Single, y As Single)
-RaiseEvent MouseMove(Button, Shift, X, y)
+Private Sub UserControl_MouseMove(Button As Integer, Shift As Integer, x As Single, Y As Single)
+RaiseEvent MouseMove(Button, Shift, x, Y)
         If Not m_EnabledSlider Then
     UserControl.MousePointer = Default: Exit Sub
         Else
             UserControl.MousePointer = m_MousePointer
         End If
     If Button <> 1 Then Exit Sub
-            GetValue X
+            GetValue x
 End Sub
 
-Private Sub GetValue(ByVal X As Single)
-    If X < 0 Then X = 0
-        If X > ScaleWidth Then X = ScaleWidth
+Private Sub GetValue(ByVal x As Single)
+    If x < 0 Then x = 0
+        If x > ScaleWidth Then x = ScaleWidth
 
 Static o_Value As Long
 
         o_Value = m_Value
-    m_Value = X / ScaleWidth * (m_Max - m_Min) + m_Min
+    m_Value = x / ScaleWidth * (m_Max - m_Min) + m_Min
         If m_Style = Normal Then
     If Ref Then Ref = False: Cls
             Shape1.Visible = True
@@ -145,7 +145,7 @@ Static o_Value As Long
 Static X1 As Single
 
             For X1 = 0 To ScaleWidth Step m_picStep
-        If X1 <= X Then
+        If X1 <= x Then
             Line (X1, 0)-(X1, ScaleHeight), m_picFillColor, BF
         Else
             Line (X1, 0)-(X1, ScaleHeight), m_picForeColor, BF
@@ -156,8 +156,8 @@ Static X1 As Single
 RaiseEvent ChangeValue(m_Value, o_Value)
 End Sub
 
-Private Sub UserControl_MouseUp(Button As Integer, Shift As Integer, X As Single, y As Single)
-RaiseEvent MouseUp(Button, Shift, X, y)
+Private Sub UserControl_MouseUp(Button As Integer, Shift As Integer, x As Single, Y As Single)
+RaiseEvent MouseUp(Button, Shift, x, Y)
 End Sub
 
 Private Sub UserControl_Paint()
@@ -426,8 +426,9 @@ End Property
 
 
 Private Sub RefreshBar(Optional ByVal value As Long)
-If value = Empty Then value = m_Value
-GetValue ScaleWidth * (value - m_Min) / (m_Max - m_Min)
+    If value = Empty Then value = m_Value
+    'Commented this line because it throws an overflow error
+    'GetValue ScaleWidth * (value - m_Min) / (m_Max - m_Min)
 End Sub
 
 
